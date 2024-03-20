@@ -1,0 +1,11 @@
+version: '3'
+tasks:
+  default:
+    desc: Please help me
+    cmds:
+      - task --list-all
+
+  dep:
+    cmds:
+      - pre-commit run  --all-files
+    desc: 运行pre-commit
