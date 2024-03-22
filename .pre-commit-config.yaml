@@ -3,10 +3,14 @@ repos:
     rev: v4.5.0
     hooks:
       - id: check-yaml
+        args:
+          - --allow-multiple-documents
       - id: check-added-large-files
-        args: ['--maxkb=1024']
+        args:
+          - --maxkb=1024
       - id: trailing-whitespace
-        args: ['--markdown-linebreak-ext=md']
+        args:
+          - --markdown-linebreak-ext=md
       - id: end-of-file-fixer
       - id: check-merge-conflict
       - id: detect-private-key
@@ -15,6 +19,8 @@ repos:
     rev: v1.88.2
     hooks:
       - id: terraform_fmt
+        args:
+          - --hook-config=--parallelism-ci-cpu-cores=2
       - id: terraform_validate
         args:
           - --hook-config=--parallelism-ci-cpu-cores=2
@@ -27,3 +33,8 @@ repos:
         args:
           - --args=--config=__GIT_WORKING_DIR__/.tflint.hcl
           - --hook-config=--parallelism-ci-cpu-cores=2
+      - id: terraform_trivy
+        files: ^examples/
+        args:
+          - --args=--format=json
+          - --args=--skip-dirs="**/.terraform"

@@ -12,25 +12,28 @@ README.md updated successfully
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.7.4 |
-| <a name="requirement_helm"></a> [helm](#requirement\_helm) | 2.12.1 |
-| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | 2.27.0 |
-## Providers
 
-| Name | Version |
-|------|---------|
-| <a name="provider_helm"></a> [helm](#provider\_helm) | 2.12.1 |
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.27.0 |
+## Modules
 
-## Resources
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_longhorn"></a> [longhorn](#module\_longhorn) | ./modules/longhorn | n/a |
+| <a name="module_nfs-client-provisioner"></a> [nfs-client-provisioner](#module\_nfs-client-provisioner) | ./modules/nfs-client-provisioner | n/a |
+| <a name="module_traefik"></a> [traefik](#module\_traefik) | ./modules/traefik | n/a |
 
-| Name | Type |
-|------|------|
-| [helm_release.traefik_deploy](https://registry.terraform.io/providers/hashicorp/helm/2.12.1/docs/resources/release) | resource |
-| [kubernetes_namespace.traefik](https://registry.terraform.io/providers/hashicorp/kubernetes/2.27.0/docs/resources/namespace) | resource |
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_helm_traefik_version"></a> [helm\_traefik\_version](#input\_helm\_traefik\_version) | Name of the Kubernetes namespace where the Traefik deployment will be deployed. | `string` | `"26.1.0"` | no |
-| <a name="input_namespace"></a> [namespace](#input\_namespace) | Name of the Kubernetes namespace where the Traefik deployment will be deployed. | `string` | `"traefik"` | no |
+| <a name="input_enable_debug_output"></a> [enable\_debug\_output](#input\_enable\_debug\_output) | DEBUG 类型的日志输出 | `bool` | `false` | no |
+| <a name="input_enable_info_output"></a> [enable\_info\_output](#input\_enable\_info\_output) | INFO 类型的日志输出 | `bool` | `false` | no |
+| <a name="input_longhorn_enabled"></a> [longhorn\_enabled](#input\_longhorn\_enabled) | 是否开启 Longhorn 部署 | `bool` | `true` | no |
+| <a name="input_nfs_enabled"></a> [nfs\_enabled](#input\_nfs\_enabled) | 是否开启 nfs-client-provisioner 部署 | `bool` | `true` | no |
+| <a name="input_treafik_enabled"></a> [treafik\_enabled](#input\_treafik\_enabled) | 是否开启 Traefik 部署 | `bool` | `true` | no |
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| <a name="output_nfs_manifest_yaml"></a> [nfs\_manifest\_yaml](#output\_nfs\_manifest\_yaml) | n/a |
+| <a name="output_traefik_url"></a> [traefik\_url](#output\_traefik\_url) | n/a |
 <!-- END_TF_DOCS -->

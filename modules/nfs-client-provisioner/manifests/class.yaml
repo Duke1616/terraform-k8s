@@ -1,0 +1,16 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: nfs-client-storage
+mountOptions:
+  - nolock,tcp,noresvport
+  - vers=3
+provisioner: k8s-sigs.io/nfs-subdir-external-provisioner
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+# 允许卷自动扩展
+allowVolumeExpansion: true
+parameters:
+  pathPattern: "$\\{.PVC.namespace\\}/$\\{.PVC.annotations.nfs.io/storage-path\\}"
+  # 删除时候归档
+  archiveOnDelete: "true"

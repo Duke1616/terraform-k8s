@@ -8,4 +8,4 @@ tasks:
   dep:
     cmds:
       - pre-commit run  --all-files
-    desc: 运行pre-commit
+    desc: run pre-commit
