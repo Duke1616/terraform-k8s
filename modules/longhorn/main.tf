@@ -1,10 +1,27 @@
-provider "helm" {
-  kubernetes {
-    config_path = "~/.kube/config"
+resource "kubernetes_labels" "longhorn_lables" {
+  for_each    = var.dynamic_nodes
+  api_version = "v1"
+  kind        = "Node"
+  metadata {
+    name = each.key
   }
+  field_manager = "TerraformLabels"
+  labels        = each.value["labels"]
+}
+
+resource "kubernetes_annotations" "longhorn_annotation" {
+  for_each    = var.dynamic_nodes
+  api_version = "v1"
+  kind        = "Node"
+  metadata {
+    name = each.key
+  }
+  field_manager = "TerraformAnnotations"
+  annotations   = each.value["annotations"]
 }
 
 resource "helm_release" "longhorn_deploy" {
+  depends_on       = [kubernetes_labels.longhorn_lables, kubernetes_annotations.longhorn_annotation]
   count            = var.enabled ? 1 : 0
   name             = "longhorn"
   timeout          = 60
@@ -79,4 +96,19 @@ resource "helm_release" "longhorn_deploy" {
     name  = "defaultSettings.deletingConfirmationFlag"
     value = var.deletingConfirmationFlag
   }
+}
+
+data "kubectl_path_documents" "docs" {
+  pattern = "${path.module}/manifests/*.yaml"
+  vars = {
+    namespace                    = var.namespace
+    access_url                   = var.access_url
+    backupTargetCredentialSecret = var.backupTargetCredentialSecret
+  }
+}
+
+resource "kubectl_manifest" "longhorn_dashboard" {
+  depends_on = [helm_release.longhorn_deploy]
+  count      = var.enabled ? length(data.kubectl_path_documents.docs.documents) : 0
+  yaml_body  = data.kubectl_path_documents.docs.documents[count.index]
 }

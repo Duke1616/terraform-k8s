@@ -1,11 +1,3 @@
-# variable "traefik_config" {
-#   type = any
-#   default = {
-#     hostname = "longhorn.example.com"
-#   }
-#   description = "custom YAML values."
-# }
-
 variable "enabled" {
   type        = bool
   default     = true
@@ -22,6 +14,21 @@ variable "longhorn_version" {
   type        = string
   default     = "1.5.3"
   description = "longhorn 使用的版本"
+}
+
+variable "access_url" {
+  type        = string
+  default     = "longhorn.example.com"
+  description = "longhorn 访问地址"
+}
+
+variable "dynamic_nodes" {
+  type = map(object({
+    labels      = map(string)
+    annotations = map(string)
+  }))
+  default     = {}
+  description = "自定义 Longhorn 存储文件目录"
 }
 
 variable "defaultFsType" {

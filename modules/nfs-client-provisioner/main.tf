@@ -1,19 +1,9 @@
-provider "kubernetes" {
-  config_path = "~/.kube/config"
-}
-
-provider "kubectl" {
-  config_path = "~/.kube/config"
-}
-
-
 resource "kubernetes_namespace" "nfs" {
   count = var.enabled ? 1 : 0
   metadata {
     name = var.namespace
   }
 }
-
 
 data "kubectl_path_documents" "docs" {
   pattern = "${path.module}/manifests/*.yaml"
@@ -26,7 +16,7 @@ data "kubectl_path_documents" "docs" {
   }
 }
 
-resource "kubectl_manifest" "test" {
+resource "kubectl_manifest" "nfs_deploy" {
   count      = var.enabled ? length(data.kubectl_path_documents.docs.documents) : 0
   depends_on = [kubernetes_namespace.nfs]
   yaml_body  = data.kubectl_path_documents.docs.documents[count.index]

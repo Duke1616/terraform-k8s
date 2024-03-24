@@ -1,9 +1,3 @@
-provider "helm" {
-  kubernetes {
-    config_path = "~/.kube/config"
-  }
-}
-
 resource "helm_release" "traefik_deploy" {
   count            = var.enabled ? 1 : 0
   name             = "traefik"
@@ -14,4 +8,18 @@ resource "helm_release" "traefik_deploy" {
   values = [
     file("${path.module}/helm/values/values-${var.traefik_version}.yaml")
   ]
+}
+
+data "kubectl_path_documents" "docs" {
+  pattern = "${path.module}/manifests/*.yaml"
+  vars = {
+    namespace  = var.namespace
+    access_url = var.access_url
+  }
+}
+
+resource "kubectl_manifest" "traefik_dashboard" {
+  depends_on = [helm_release.traefik_deploy]
+  count      = var.enabled ? length(data.kubectl_path_documents.docs.documents) : 0
+  yaml_body  = data.kubectl_path_documents.docs.documents[count.index]
 }

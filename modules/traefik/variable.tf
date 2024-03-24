@@ -15,3 +15,9 @@ variable "traefik_version" {
   default     = "26.1.0"
   description = "Traefik 使用的版本"
 }
+
+variable "access_url" {
+  type        = string
+  default     = "traefik.example.com"
+  description = "Traefik 访问地址"
+}

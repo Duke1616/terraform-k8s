@@ -13,21 +13,30 @@ README.md updated successfully
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.7.4 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | 2.12.1 |
+| <a name="requirement_kubectl"></a> [kubectl](#requirement\_kubectl) | >= 1.14.0 |
+| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.27.0 |
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_helm"></a> [helm](#provider\_helm) | 2.12.1 |
+| <a name="provider_kubectl"></a> [kubectl](#provider\_kubectl) | 1.14.0 |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.27.0 |
 
 ## Resources
 
 | Name | Type |
 |------|------|
 | [helm_release.longhorn_deploy](https://registry.terraform.io/providers/hashicorp/helm/2.12.1/docs/resources/release) | resource |
+| [kubectl_manifest.longhorn_dashboard](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/resources/manifest) | resource |
+| [kubernetes_annotations.longhorn_annotation](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/annotations) | resource |
+| [kubernetes_labels.longhorn_lables](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/labels) | resource |
+| [kubectl_path_documents.docs](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/data-sources/path_documents) | data source |
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_access_url"></a> [access\_url](#input\_access\_url) | longhorn 访问地址 | `string` | `"longhorn.example.com"` | no |
 | <a name="input_allowVolumeCreationWithDegradedAvailability"></a> [allowVolumeCreationWithDegradedAvailability](#input\_allowVolumeCreationWithDegradedAvailability) | 生产环境建议关闭 | `bool` | `false` | no |
 | <a name="input_backupTarget"></a> [backupTarget](#input\_backupTarget) | 用于备份的目标器。支持NFS和S3协议 | `string` | `"s3://longhorn@us-east-1/"` | no |
 | <a name="input_backupTargetCredentialSecret"></a> [backupTargetCredentialSecret](#input\_backupTargetCredentialSecret) | 用于备份的 secret 凭证 | `string` | `"longhorn-s3-secret"` | no |
@@ -36,6 +45,7 @@ README.md updated successfully
 | <a name="input_defaultFsType"></a> [defaultFsType](#input\_defaultFsType) | 根据磁盘类型，可选：xfs ext4 | `string` | `"xfs"` | no |
 | <a name="input_defaultReplicaCount"></a> [defaultReplicaCount](#input\_defaultReplicaCount) | 从Longhorn用户界面创建卷时默认的副本数量，如果有大于3个节点选择3, 否则为2 | `number` | `2` | no |
 | <a name="input_deletingConfirmationFlag"></a> [deletingConfirmationFlag](#input\_deletingConfirmationFlag) | 此处如何设置为 false， Longhorn将不允许卸载 | `bool` | `true` | no |
+| <a name="input_dynamic_nodes"></a> [dynamic\_nodes](#input\_dynamic\_nodes) | 自定义 Longhorn 存储文件目录 | <pre>map(object({<br>    labels      = map(string)<br>    annotations = map(string)<br>  }))</pre> | `{}` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | 是否开启全局部署 | `bool` | `true` | no |
 | <a name="input_longhorn_version"></a> [longhorn\_version](#input\_longhorn\_version) | longhorn 使用的版本 | `string` | `"1.5.3"` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | 名称空间 | `string` | `"longhorn-system"` | no |
