@@ -1,4 +1,4 @@
-# infra
+# Terraform-k8s
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 README.md updated successfully
