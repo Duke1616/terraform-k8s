@@ -44,7 +44,7 @@ README.md updated successfully
 | <a name="input_defaultDataPath"></a> [defaultDataPath](#input\_defaultDataPath) | 主机上数据存储的默认路径 | `string` | `"/data/longhorn"` | no |
 | <a name="input_defaultFsType"></a> [defaultFsType](#input\_defaultFsType) | 根据磁盘类型，可选：xfs ext4 | `string` | `"xfs"` | no |
 | <a name="input_defaultReplicaCount"></a> [defaultReplicaCount](#input\_defaultReplicaCount) | 从Longhorn用户界面创建卷时默认的副本数量，如果有大于3个节点选择3, 否则为2 | `number` | `2` | no |
-| <a name="input_deletingConfirmationFlag"></a> [deletingConfirmationFlag](#input\_deletingConfirmationFlag) | 此处如何设置为 false， Longhorn将不允许卸载 | `bool` | `true` | no |
+| <a name="input_deletingConfirmationFlag"></a> [deletingConfirmationFlag](#input\_deletingConfirmationFlag) | 为了防止Longhorn被意外卸载（导致数据丢失）, 设置为True将允许删除 | `bool` | `false` | no |
 | <a name="input_dynamic_nodes"></a> [dynamic\_nodes](#input\_dynamic\_nodes) | 自定义 Longhorn 存储文件目录 | <pre>map(object({<br>    labels      = map(string)<br>    annotations = map(string)<br>  }))</pre> | `{}` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | 是否开启全局部署 | `bool` | `true` | no |
 | <a name="input_longhorn_version"></a> [longhorn\_version](#input\_longhorn\_version) | longhorn 使用的版本 | `string` | `"1.5.3"` | no |
