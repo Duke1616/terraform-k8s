@@ -11,8 +11,8 @@ README.md updated successfully
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.7.4 |
-| <a name="requirement_helm"></a> [helm](#requirement\_helm) | 2.12.1 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.7.4 |
+| <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.12.1 |
 ## Providers
 
 | Name | Version |
@@ -23,7 +23,7 @@ README.md updated successfully
 
 | Name | Type |
 |------|------|
-| [helm_release.k8tz_deploy](https://registry.terraform.io/providers/hashicorp/helm/2.12.1/docs/resources/release) | resource |
+| [helm_release.k8tz_deploy](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 ## Inputs
 
 | Name | Description | Type | Default | Required |
