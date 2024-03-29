@@ -34,7 +34,7 @@ README.md updated successfully
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_directpv_dynamic_nodes"></a> [directpv\_dynamic\_nodes](#input\_directpv\_dynamic\_nodes) | 自定义 directpv 部署节点 | `list(string)` | <pre>[<br>  "k8s-node01",<br>  "k8s-node02",<br>  "k8s-node03",<br>  "k8s-node04"<br>]</pre> | no |
-| <a name="input_directpv_enabled"></a> [directpv\_enabled](#input\_directpv\_enabled) | 是否开启 directpv 部署 | `bool` | `false` | no |
+| <a name="input_directpv_enabled"></a> [directpv\_enabled](#input\_directpv\_enabled) | 是否开启 directpv 部署 | `bool` | `true` | no |
 | <a name="input_domain_uri"></a> [domain\_uri](#input\_domain\_uri) | 服务域名 URI 地址 | `string` | `"cdc.com"` | no |
 | <a name="input_enable_debug_output"></a> [enable\_debug\_output](#input\_enable\_debug\_output) | DEBUG 类型的日志输出 | `bool` | `false` | no |
 | <a name="input_enable_info_output"></a> [enable\_info\_output](#input\_enable\_info\_output) | INFO 类型的日志输出 | `bool` | `false` | no |
@@ -48,6 +48,7 @@ README.md updated successfully
 
 | Name | Description |
 |------|-------------|
+| <a name="output_grep_command"></a> [grep\_command](#output\_grep\_command) | n/a |
 | <a name="output_nfs_manifest_yaml"></a> [nfs\_manifest\_yaml](#output\_nfs\_manifest\_yaml) | n/a |
 | <a name="output_traefik_url"></a> [traefik\_url](#output\_traefik\_url) | n/a |
 <!-- END_TF_DOCS -->

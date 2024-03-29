@@ -32,3 +32,4 @@
 ## big file
 modules/krew/plugins/*
 modules/krew/bin/*
+modules/directpv/bin/direct

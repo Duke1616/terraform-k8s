@@ -6,3 +6,8 @@ output "nfs_manifest_yaml" {
 output "traefik_url" {
   value = var.enable_info_output ? "traefik.example.com" : null
 }
+
+
+output "grep_command" {
+  value = module.directpv.grep_command
+}

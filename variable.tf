@@ -70,7 +70,7 @@ variable "longhorn_dynamic_nodes" {
 
 variable "directpv_enabled" {
   type        = bool
-  default     = false
+  default     = true
   description = "是否开启 directpv 部署"
 }
 
