@@ -17,7 +17,6 @@ data "kubectl_path_documents" "docs" {
 }
 
 resource "kubectl_manifest" "nfs_deploy" {
-  count      = var.enabled ? length(data.kubectl_path_documents.docs.documents) : 0
-  depends_on = [kubernetes_namespace.nfs]
-  yaml_body  = data.kubectl_path_documents.docs.documents[count.index]
+  count     = var.enabled ? length(data.kubectl_path_documents.docs.documents) : 0
+  yaml_body = data.kubectl_path_documents.docs.documents[count.index]
 }

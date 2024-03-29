@@ -28,3 +28,7 @@
 ## direnv
 /.envrc.private
 /.direnv/
+
+## big file
+modules/krew/plugins/*
+modules/krew/bin/*

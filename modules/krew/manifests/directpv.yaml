@@ -1,0 +1,47 @@
+apiVersion: krew.googlecontainertools.github.com/v1alpha2
+kind: Plugin
+metadata:
+  name: directpv
+spec:
+  version: v4.0.10
+  homepage: https://github.com/minio/directpv
+  shortDescription: Deploys and manages the lifecycle of DirectPV CSI driver
+  description: |
+    Deploys and manages the lifecycle of DirectPV CSI
+    driver - A CSI for dynamically provisioning direct persistent volumes.
+  platforms:
+  - selector:
+      matchLabels:
+        os: darwin
+        arch: amd64
+    uri: https://github.com/minio/directpv/releases/download/v4.0.10/kubectl-directpv_darwin_amd64_v1.zip
+    sha256: 99b73c7de9aad6b957e5ff9c1a9ce1519eeac78f3f71f43e2aed142b118f9f17
+    bin: kubectl-directpv
+  - selector:
+      matchLabels:
+        os: darwin
+        arch: arm64
+    uri: https://github.com/minio/directpv/releases/download/v4.0.10/kubectl-directpv_darwin_arm64.zip
+    sha256: 1fec46de157547097d4e20dc41bfb6e821d85432c227048f70776e7579f1a882
+    bin: kubectl-directpv
+  - selector:
+      matchLabels:
+        os: linux
+        arch: amd64
+    uri: https://github.com/minio/directpv/releases/download/v4.0.10/kubectl-directpv_linux_amd64_v1.zip
+    sha256: 73523603a6429b8620fb6bd2a68ca68643a4d56ecb5766f7daa50c4fcb7e517b
+    bin: kubectl-directpv
+  - selector:
+      matchLabels:
+        os: linux
+        arch: arm64
+    uri: https://github.com/minio/directpv/releases/download/v4.0.10/kubectl-directpv_linux_arm64.zip
+    sha256: 506605dfaa6757552e5f67469f4d06fd60466c16292122a72007065033322c91
+    bin: kubectl-directpv
+  - selector:
+      matchLabels:
+        os: windows
+        arch: amd64
+    uri: https://github.com/minio/directpv/releases/download/v4.0.10/kubectl-directpv_windows_amd64_v1.zip
+    sha256: 91a7e90ab94875118d9017f2221a4568c79a62100796eab5562366aa0ca57259
+    bin: kubectl-directpv.exe

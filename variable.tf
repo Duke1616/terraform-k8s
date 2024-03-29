@@ -1,8 +1,13 @@
-
 variable "domain_uri" {
   type        = string
   default     = "cdc.com"
   description = "服务域名 URI 地址"
+}
+
+variable "krew_enabled" {
+  type        = bool
+  default     = false
+  description = "是否开启 krew plugin 部署"
 }
 
 variable "k8tz_enabled" {
@@ -13,10 +18,9 @@ variable "k8tz_enabled" {
 
 variable "treafik_enabled" {
   type        = bool
-  default     = true
+  default     = false
   description = "是否开启 Traefik 部署"
 }
-
 
 variable "nfs_enabled" {
   type        = bool
@@ -24,10 +28,9 @@ variable "nfs_enabled" {
   description = "是否开启 nfs-client-provisioner 部署"
 }
 
-
 variable "longhorn_enabled" {
   type        = bool
-  default     = true
+  default     = false
   description = "是否开启 Longhorn 部署"
 }
 
@@ -65,13 +68,23 @@ variable "longhorn_dynamic_nodes" {
   description = "自定义 Longhorn 存储文件目录"
 }
 
+variable "directpv_enabled" {
+  type        = bool
+  default     = false
+  description = "是否开启 directpv 部署"
+}
+
+variable "directpv_dynamic_nodes" {
+  type        = list(string)
+  default     = ["k8s-node01", "k8s-node02", "k8s-node03", "k8s-node04"]
+  description = "自定义 directpv 部署节点"
+}
 
 variable "enable_debug_output" {
   type        = bool
   default     = false
   description = "DEBUG 类型的日志输出"
 }
-
 
 variable "enable_info_output" {
   type        = bool

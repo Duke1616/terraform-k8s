@@ -33,7 +33,7 @@ variable "dynamic_nodes" {
 
 variable "defaultFsType" {
   type        = string
-  default     = "xfs"
+  default     = "ext4"
   description = "根据磁盘类型，可选：xfs ext4"
 }
 
@@ -106,6 +106,6 @@ variable "storageReservedPercentageForDefaultDisk" {
 
 variable "deletingConfirmationFlag" {
   type        = bool
-  default     = false
-  description = "为了防止Longhorn被意外卸载（导致数据丢失）, 设置为True将允许删除"
+  default     = true
+  description = "此处如何设置为 false， Longhorn将不允许卸载"
 }
