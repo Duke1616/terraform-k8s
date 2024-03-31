@@ -14,7 +14,7 @@ import (
 type Drive struct {
 	ID    string `yaml:"id"`
 	Name  string `yaml:"name"`
-	Size  string `yaml:"size"`
+	Size  uint64 `yaml:"size"`
 	Make  string `yaml:"make"`
 	Select string `yaml:"select"`
 }

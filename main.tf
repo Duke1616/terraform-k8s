@@ -44,4 +44,7 @@ module "directpv" {
   source        = "./modules/directpv"
   enabled       = var.directpv_enabled
   dynamic_nodes = var.directpv_dynamic_nodes
+  exclude_disk  = var.directpv_exclude_disk
+  include_disk  = var.directpv_include_disk
+  run_init_disk = var.directpv_run_init_disk
 }

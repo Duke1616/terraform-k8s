@@ -11,7 +11,7 @@ migrate_file() {
 }
 
 setup_krew() {
-    ${path}/krew-linux_amd64 install --manifest=${path}/manifests/krew.yaml --archive=${path}/plugins/krew-linux_amd64.tar.gz
+    ${path}/bin/krew-linux_amd64 install --manifest=${path}/manifests/krew.yaml --archive=${path}/plugins/krew-linux_amd64.tar.gz
 }
 
 setup_directpv() {

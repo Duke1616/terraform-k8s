@@ -25,4 +25,8 @@ resource "local_file" "krew_path" {
   content         = "PATH=$HOME/.krew/bin:$PATH"
   filename        = "/etc/profile.d/krew.sh"
   file_permission = 0644
+
+  provisioner "local-exec" {
+    command = "export PATH=$HOME/.krew/bin:$PATH"
+  }
 }

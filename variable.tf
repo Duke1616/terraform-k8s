@@ -6,7 +6,7 @@ variable "domain_uri" {
 
 variable "krew_enabled" {
   type        = bool
-  default     = false
+  default     = true
   description = "是否开启 krew plugin 部署"
 }
 
@@ -90,4 +90,32 @@ variable "enable_info_output" {
   type        = bool
   default     = false
   description = "INFO 类型的日志输出"
+}
+
+variable "directpv_exclude_disk" {
+  type = map(list(string))
+  default = {
+    "k8s-node01" = [
+      "sdb",
+    ]
+    "k8s-node03" = [
+      "sdc"
+    ]
+  }
+  description = "生成排除命令片段, k8s-node01 │ sdb|k8s-node04 │ sdc"
+}
+
+variable "directpv_include_disk" {
+  type = map(string)
+  default = {
+    size = 3.6
+    node = "k8s-node01"
+  }
+  description = "生成包含命令片段，取valud值进行过滤，grep 3.6 | grep k8s-node01 请注意先后顺序"
+}
+
+variable "directpv_run_init_disk" {
+  type        = bool
+  default     = false
+  description = "是否执行磁盘格式化操作"
 }

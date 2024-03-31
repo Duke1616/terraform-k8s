@@ -8,6 +8,11 @@ output "traefik_url" {
 }
 
 
-output "grep_command" {
-  value = module.directpv.grep_command
+output "directpv_grep_include" {
+  value = module.directpv.grep_include
+}
+
+
+output "directpv_grep_exclude" {
+  value = module.directpv.grep_exclude
 }

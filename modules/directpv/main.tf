@@ -33,11 +33,11 @@ resource "kubectl_manifest" "directpv_deploy" {
   yaml_body = data.kubectl_path_documents.docs.documents[count.index]
 }
 
-resource "null_resource" "setup_plugin" {
+resource "null_resource" "discover_disk" {
   depends_on = [kubectl_manifest.directpv_deploy]
   count      = var.enabled ? 1 : 0
   triggers = {
-    always_run = timestamp()
+    always_run = var.run_init_disk == true ? timestamp() : null
   }
 
   provisioner "local-exec" {
@@ -46,10 +46,11 @@ resource "null_resource" "setup_plugin" {
 }
 
 resource "null_resource" "init_disk" {
-  depends_on = [null_resource.setup_plugin]
+  depends_on = [null_resource.discover_disk]
   count      = var.enabled ? 1 : 0
+
   triggers = {
-    always_run = timestamp()
+    always_run = var.run_init_disk == true ? timestamp() : null
   }
 
   provisioner "local-exec" {
@@ -57,6 +58,7 @@ resource "null_resource" "init_disk" {
       exclude_command = local.grep_excludes != null ? local.grep_excludes : "null"
       include_command = local.grep_includes != null ? local.grep_includes : "null"
       path            = path.module
+      run_init_disk   = var.run_init_disk
     })
   }
 }
