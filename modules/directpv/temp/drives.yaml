@@ -1,0 +1,70 @@
+version: v1
+nodes:
+    - name: k8s-node04
+      drives:
+        - id: 8:32$5CazHPjgzoBljJNpZVEA65hcu0Y+ZRELFVinLLeitMc=
+          name: sdc
+          size: 3972844748800
+          make: VMware_ VMware_Virtual_S
+          select: "yes"
+        - id: 8:48$QBjVJuOduH/x/pgfsdpHJeRVLnMo9brPNNjvgzpC+xE=
+          name: sdd
+          size: 1030792151040
+          make: VMware_ VMware_Virtual_S
+          select: "yes"
+        - id: 8:16$RGmeLG9hJBfm0nbFZk9xyF3MdJc2jNPZ2SuvwpXsQV8=
+          name: sdb
+          size: 3972844748800
+          make: VMware_ VMware_Virtual_S
+          select: "yes"
+    - name: k8s-node01
+      drives:
+        - id: 8:16$wBfY9Myz49KsooBH/vXe3hQ+nHGnGTAqvvT0zR8CxyM=
+          name: sdb
+          size: 1030792151040
+          make: VMware_ VMware_Virtual_S
+          select: "yes"
+        - id: 8:48$/ZjMv0I6dgeKjeNgfojDaE3JA9+Erg5vhtDgRDGYW4g=
+          name: sdd
+          size: 3972844748800
+          make: VMware_ VMware_Virtual_S
+          select: "yes"
+        - id: 8:32$FCddyocjH9Fbxgh/+S8mmTiC4iryJX0DxoDfUQVliVQ=
+          name: sdc
+          size: 3972844748800
+          make: VMware_ VMware_Virtual_S
+          select: "yes"
+    - name: k8s-node02
+      drives:
+        - id: 8:16$vl0jlWfF654ShhH8oztsywh8ZzP/9HZmajya/G4/Rck=
+          name: sdb
+          size: 3972844748800
+          make: VMware_ VMware_Virtual_S
+          select: "yes"
+        - id: 8:48$DkOUER/eDaEbJ9QKxQHxm6riVBmed0s1GS6Q+iCg7T4=
+          name: sdd
+          size: 1030792151040
+          make: VMware_ VMware_Virtual_S
+          select: "yes"
+        - id: 8:32$D0XGMASWcgmHd0ryehAgQWT90pWuQLJUsYCekAvZadY=
+          name: sdc
+          size: 3972844748800
+          make: VMware_ VMware_Virtual_S
+          select: "yes"
+    - name: k8s-node03
+      drives:
+        - id: 8:16$qcltKxKX8MBvEVsjGOlDs7ueHwjQy4bfuuDb18WPGtA=
+          name: sdb
+          size: 3972844748800
+          make: VMware_ VMware_Virtual_S
+          select: "yes"
+        - id: 8:32$7GW1JCNuzrs4BrhJEnVGDa6zXSEUJfUUT4zn/Jjo41Q=
+          name: sdc
+          size: 1030792151040
+          make: VMware_ VMware_Virtual_S
+          select: "yes"
+        - id: 8:48$2vtLZXwcFpDSjY/76qV0vxQSA3MA++JQ5P7CeVHI0Fg=
+          name: sdd
+          size: 3972844748800
+          make: VMware_ VMware_Virtual_S
+          select: "yes"

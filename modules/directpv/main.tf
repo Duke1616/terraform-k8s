@@ -1,14 +1,14 @@
 locals {
-  grep_excludes = join("|", [
+  grep_excludes = length(var.exclude_disk) > 0 ? join("|", [
     for node, disks in var.exclude_disk : join("|", [
       for disk in disks : format("%s │ %s", node, disk)
     ])
-  ])
+  ]) : null
 
   grep_commands = [
     for key, value in var.include_disk : format("grep %s", value)
   ]
-  grep_includes = join(" | ", local.grep_commands)
+  grep_includes = length(local.grep_commands) > 0 ? join(" | ", local.grep_commands) : null
 }
 
 resource "kubernetes_labels" "dircetpv_lables" {
@@ -41,7 +41,7 @@ resource "null_resource" "setup_plugin" {
   }
 
   provisioner "local-exec" {
-    command = "kubectl directpv discover --output-file=${path.module}/scripts/drives.yaml > '${path.module}/scripts/pre-disk.txt'"
+    command = "kubectl directpv discover --output-file=${path.module}/temp/drives.yaml > '${path.module}/temp/pre-disk.txt'"
   }
 }
 
@@ -54,8 +54,8 @@ resource "null_resource" "init_disk" {
 
   provisioner "local-exec" {
     command = templatefile("${path.module}/scripts/disk-init.sh.tpl", {
-      exclude_command = local.grep_excludes
-      include_command = local.grep_includes
+      exclude_command = local.grep_excludes != null ? local.grep_excludes : "null"
+      include_command = local.grep_includes != null ? local.grep_includes : "null"
       path            = path.module
     })
   }

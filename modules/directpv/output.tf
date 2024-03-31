@@ -1,3 +1,3 @@
 output "grep_command" {
-  value = "grep -vE  '${local.grep_excludes}' 1.txt"
+  value = local.grep_excludes != null ? "grep -vE '${local.grep_excludes}' 1.txt" : null
 }

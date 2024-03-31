@@ -53,8 +53,8 @@ README.md updated successfully
 |------|-------------|------|---------|:--------:|
 | <a name="input_dynamic_nodes"></a> [dynamic\_nodes](#input\_dynamic\_nodes) | 自定义 directpv 安裝节点名称 | `list(string)` | `[]` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | 是否开启全局部署 | `bool` | `true` | no |
-| <a name="input_exclude_disk"></a> [exclude\_disk](#input\_exclude\_disk) | n/a | `map(list(string))` | <pre>{<br>  "k8s-node01": [<br>    "sda",<br>    "sdc"<br>  ],<br>  "k8s-node04": [<br>    "sdc"<br>  ]<br>}</pre> | no |
-| <a name="input_include_disk"></a> [include\_disk](#input\_include\_disk) | 生成包含命令片段，取valud值进行过滤，grep 3.6 \| grep k8s-node01 请注意先后顺序 | `map(string)` | <pre>{<br>  "capacity": 3.6<br>}</pre> | no |
+| <a name="input_exclude_disk"></a> [exclude\_disk](#input\_exclude\_disk) | n/a | `map(list(string))` | `{}` | no |
+| <a name="input_include_disk"></a> [include\_disk](#input\_include\_disk) | 生成包含命令片段，取valud值进行过滤，grep 3.6 \| grep k8s-node01 请注意先后顺序 | `map(string)` | `{}` | no |
 ## Outputs
 
 | Name | Description |
