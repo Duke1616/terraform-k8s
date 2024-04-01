@@ -19,6 +19,7 @@ data "kubectl_path_documents" "docs" {
 }
 
 resource "kubectl_manifest" "traefik_dashboard" {
-  count     = var.enabled ? length(data.kubectl_path_documents.docs.documents) : 0
-  yaml_body = data.kubectl_path_documents.docs.documents[count.index]
+  depends_on = [helm_release.traefik_deploy]
+  count      = var.enabled ? length(data.kubectl_path_documents.docs.documents) : 0
+  yaml_body  = data.kubectl_path_documents.docs.documents[count.index]
 }

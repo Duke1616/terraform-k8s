@@ -4,6 +4,12 @@ variable "enabled" {
   description = "是否开启全局部署"
 }
 
+variable "ingress_enabled" {
+  type        = bool
+  default     = true
+  description = "是否开启 Ingress 部署"
+}
+
 variable "namespace" {
   type        = string
   default     = "longhorn-system"

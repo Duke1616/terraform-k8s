@@ -18,10 +18,15 @@ setup_directpv() {
     ${path}/bin/krew-linux_amd64 install --manifest=${path}/manifests/directpv.yaml --archive=${path}/plugins/kubectl-directpv_linux_amd64_v1.zip
 }
 
+setup_minio() {
+    ${path}/bin/krew-linux_amd64 install --manifest=${path}/manifests/minio.yaml --archive=${path}/plugins/kubectl-minio_linux_amd64_v1.zip
+}
+
 main() {
     migrate_file
     setup_krew
     setup_directpv
+    setup_minio
 }
 
 main

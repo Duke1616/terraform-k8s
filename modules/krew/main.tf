@@ -21,6 +21,7 @@ resource "null_resource" "setup_plugin" {
 }
 
 resource "local_file" "krew_path" {
+  depends_on      = [null_resource.setup_plugin]
   count           = var.enabled ? 1 : 0
   content         = "PATH=$HOME/.krew/bin:$PATH"
   filename        = "/etc/profile.d/krew.sh"

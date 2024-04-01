@@ -1,0 +1,40 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: console
+  namespace: ${operator_namespace}
+spec:
+  entryPoints:
+    - web
+  routes:
+  - kind: Rule
+    match: Host(`${operator_access_url}`)
+    services:
+    - kind: Service
+      name: console
+      namespace: ${operator_namespace}
+      port: 9090
+      responseForwarding:
+        flushInterval: 1ms
+      scheme: http
+# ---
+# apiVersion: traefik.containo.us/v1alpha1
+# kind: IngressRoute
+# metadata:
+#   name: minio-console
+#   namespace: minio.cdc.com
+# spec:
+#   entryPoints:
+#     - web
+#   routes:
+#   - kind: Rule
+#     match: Host(`minio-extend.cdc.com`)
+#     services:
+#     - kind: Service
+#       name: idl-extend-console
+#       namespace: idl-minio
+#       port: 9090
+#       responseForwarding:
+#         flushInterval: 1ms
+#       scheme: http

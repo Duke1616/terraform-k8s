@@ -23,7 +23,7 @@ resource "kubernetes_annotations" "longhorn_annotation" {
 resource "helm_release" "longhorn_deploy" {
   count            = var.enabled ? 1 : 0
   name             = "longhorn"
-  timeout          = 60
+  timeout          = 300
   chart            = "${path.module}/helm/charts/longhorn-${var.longhorn_version}.tgz"
   namespace        = var.namespace
   create_namespace = true
@@ -107,6 +107,7 @@ data "kubectl_path_documents" "docs" {
 }
 
 resource "kubectl_manifest" "longhorn_dashboard" {
-  count     = var.enabled ? length(data.kubectl_path_documents.docs.documents) : 0
-  yaml_body = data.kubectl_path_documents.docs.documents[count.index]
+  depends_on = [helm_release.longhorn_deploy]
+  count      = var.ingress_enabled && var.enabled ? length(data.kubectl_path_documents.docs.documents) : 0
+  yaml_body  = data.kubectl_path_documents.docs.documents[count.index]
 }

@@ -23,28 +23,41 @@ module "k8tz" {
 }
 
 module "traefik" {
+  depends_on = [module.k8tz]
   source     = "./modules/traefik"
   enabled    = var.treafik_enabled
   access_url = "traefik.${var.domain_uri}"
 }
 
 module "nfs-client-provisioner" {
-  source  = "./modules/nfs-client-provisioner"
-  enabled = var.nfs_enabled
+  depends_on = [module.k8tz]
+  source     = "./modules/nfs-client-provisioner"
+  enabled    = var.nfs_enabled
 }
 
 module "longhorn" {
-  source        = "./modules/longhorn"
-  enabled       = var.longhorn_enabled
-  access_url    = "longhorn.${var.domain_uri}"
-  dynamic_nodes = var.longhorn_dynamic_nodes
+  depends_on      = [module.k8tz, module.traefik.helm_release]
+  source          = "./modules/longhorn"
+  enabled         = var.longhorn_enabled
+  access_url      = "longhorn.${var.domain_uri}"
+  ingress_enabled = var.treafik_enabled
+  dynamic_nodes   = var.longhorn_dynamic_nodes
 }
 
 module "directpv" {
+  depends_on    = [module.krew.null_resource]
   source        = "./modules/directpv"
   enabled       = var.directpv_enabled
   dynamic_nodes = var.directpv_dynamic_nodes
   exclude_disk  = var.directpv_exclude_disk
   include_disk  = var.directpv_include_disk
   run_init_disk = var.directpv_run_init_disk
+}
+
+
+module "minio-operator" {
+  depends_on      = [module.k8tz, module.traefik.helm_release]
+  source          = "./modules/minio-operator"
+  enabled         = var.minio_enabled
+  ingress_enabled = var.treafik_enabled
 }

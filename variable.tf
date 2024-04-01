@@ -4,6 +4,18 @@ variable "domain_uri" {
   description = "服务域名 URI 地址"
 }
 
+variable "enable_debug_output" {
+  type        = bool
+  default     = false
+  description = "DEBUG 类型的日志输出"
+}
+
+variable "enable_info_output" {
+  type        = bool
+  default     = false
+  description = "INFO 类型的日志输出"
+}
+
 variable "krew_enabled" {
   type        = bool
   default     = true
@@ -18,7 +30,7 @@ variable "k8tz_enabled" {
 
 variable "treafik_enabled" {
   type        = bool
-  default     = false
+  default     = true
   description = "是否开启 Traefik 部署"
 }
 
@@ -30,7 +42,7 @@ variable "nfs_enabled" {
 
 variable "longhorn_enabled" {
   type        = bool
-  default     = false
+  default     = true
   description = "是否开启 Longhorn 部署"
 }
 
@@ -80,16 +92,10 @@ variable "directpv_dynamic_nodes" {
   description = "自定义 directpv 部署节点"
 }
 
-variable "enable_debug_output" {
+variable "directpv_run_init_disk" {
   type        = bool
-  default     = false
-  description = "DEBUG 类型的日志输出"
-}
-
-variable "enable_info_output" {
-  type        = bool
-  default     = false
-  description = "INFO 类型的日志输出"
+  default     = true
+  description = "是否部署后执行磁盘格式化操作"
 }
 
 variable "directpv_exclude_disk" {
@@ -109,13 +115,14 @@ variable "directpv_include_disk" {
   type = map(string)
   default = {
     size = 3.6
-    node = "k8s-node01"
+    # node = "k8s-node01"
   }
   description = "生成包含命令片段，取valud值进行过滤，grep 3.6 | grep k8s-node01 请注意先后顺序"
 }
 
-variable "directpv_run_init_disk" {
+
+variable "minio_enabled" {
   type        = bool
-  default     = false
-  description = "是否执行磁盘格式化操作"
+  default     = true
+  description = "是否开启 Minio 部署"
 }
