@@ -16,17 +16,18 @@ type Drive struct {
 	Name  string `yaml:"name"`
 	Size  uint64 `yaml:"size"`
 	Make  string `yaml:"make"`
-	Select string `yaml:"select"`
+	FS     string `yaml:"fs,omitempty"`
+	Select string `yaml:"select,omitempty"`
 }
 
 type Node struct {
 	Name   string  `yaml:"name"`
-	Drives []Drive `yaml:"drives"`
+	Drives []Drive `yaml:"drives,omitempty"`
 }
 
 type Config struct {
 	Version string `yaml:"version"`
-	Nodes   []Node `yaml:"nodes"`
+	Nodes   []Node `yaml:"nodes,omitempty"`
 }
 
 var (

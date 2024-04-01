@@ -1,0 +1,38 @@
+[?25l
+ Discovering node 'k8s-node01' ●∙∙
+ Discovering node 'k8s-node02' ●∙∙
+
+ [0D[2K[1A[2K[1A[2K[1A[2K[1A[0D[2K
+ Discovering node 'k8s-node01' ●∙∙
+ Discovering node 'k8s-node02' ●∙∙
+ Discovering node 'k8s-node03' ●∙∙
+
+ [0D[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[0D[2K
+ Discovering node 'k8s-node04' ●∙∙
+ Discovered node 'k8s-node01' ✔
+ Discovered node 'k8s-node02' ✔
+ Discovered node 'k8s-node03' ✔
+
+ [0D[1A[1A[2K[1A[2K[1A[2K[1A[2K[1A[0D[2K
+ Discovered node 'k8s-node01' ✔
+ Discovered node 'k8s-node02' ✔
+ Discovered node 'k8s-node03' ✔
+ Discovered node 'k8s-node04' ✔
+[1B[0D[2K[?25h[?1002l[?1003l[?1006l┌─────────────────────┬────────────┬───────┬─────────┬────────────┬──────────────────────────┬───────────┬─────────────┐
+│ ID                  │ NODE       │ DRIVE │ SIZE    │ FILESYSTEM │ MAKE                     │ AVAILABLE │ DESCRIPTION │
+├─────────────────────┼────────────┼───────┼─────────┼────────────┼──────────────────────────┼───────────┼─────────────┤
+│ 8:16$zKmhLCn3Nfm... │ k8s-node01 │ sdb   │ 960 GiB │ xfs        │ VMware_ VMware_Virtual_S │ YES       │ -           │
+│ 8:32$0UB+FG3JS7k... │ k8s-node01 │ sdc   │ 3.6 TiB │ xfs        │ VMware_ VMware_Virtual_S │ YES       │ -           │
+│ 8:48$Y13dde97rMw... │ k8s-node01 │ sdd   │ 3.6 TiB │ xfs        │ VMware_ VMware_Virtual_S │ YES       │ -           │
+│ 8:16$xm+XB67ALZj... │ k8s-node02 │ sdb   │ 3.6 TiB │ xfs        │ VMware_ VMware_Virtual_S │ YES       │ -           │
+│ 8:32$ddRLD0tvZ7Q... │ k8s-node02 │ sdc   │ 3.6 TiB │ xfs        │ VMware_ VMware_Virtual_S │ YES       │ -           │
+│ 8:48$WmsCcVlFgK6... │ k8s-node02 │ sdd   │ 960 GiB │ xfs        │ VMware_ VMware_Virtual_S │ YES       │ -           │
+│ 8:16$iB1HWon4mD5... │ k8s-node03 │ sdb   │ 3.6 TiB │ xfs        │ VMware_ VMware_Virtual_S │ YES       │ -           │
+│ 8:32$wpbfbuP7Run... │ k8s-node03 │ sdc   │ 960 GiB │ xfs        │ VMware_ VMware_Virtual_S │ YES       │ -           │
+│ 8:48$X+ydOt5wYIq... │ k8s-node03 │ sdd   │ 3.6 TiB │ xfs        │ VMware_ VMware_Virtual_S │ YES       │ -           │
+│ 8:16$XAgoO7TtqvA... │ k8s-node04 │ sdb   │ 3.6 TiB │ xfs        │ VMware_ VMware_Virtual_S │ YES       │ -           │
+│ 8:32$GIGtbqkvmRz... │ k8s-node04 │ sdc   │ 3.6 TiB │ xfs        │ VMware_ VMware_Virtual_S │ YES       │ -           │
+│ 8:48$6F9o8T7EMgb... │ k8s-node04 │ sdd   │ 960 GiB │ xfs        │ VMware_ VMware_Virtual_S │ YES       │ -           │
+└─────────────────────┴────────────┴───────┴─────────┴────────────┴──────────────────────────┴───────────┴─────────────┘
+
+Generated 'modules/directpv/temp/drives.yaml' successfully.

@@ -41,7 +41,7 @@ resource "null_resource" "discover_disk" {
   }
 
   provisioner "local-exec" {
-    command = "kubectl directpv discover --output-file=${path.module}/temp/drives.yaml > '${path.module}/temp/pre-disk.txt'"
+    command = "$HOME/.krew/bin/kubectl-directpv discover --output-file=${path.module}/temp/drives.yaml > '${path.module}/temp/pre-disk.txt'"
   }
 }
 

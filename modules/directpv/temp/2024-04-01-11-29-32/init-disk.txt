@@ -1,0 +1,8 @@
+ 8:32$0UB+FG3JS7k...   k8s-node01   sdc     3.6 TiB   xfs          VMware_ VMware_Virtual_S   YES         -
+ 8:48$Y13dde97rMw...   k8s-node01   sdd     3.6 TiB   xfs          VMware_ VMware_Virtual_S   YES         -
+ 8:16$xm+XB67ALZj...   k8s-node02   sdb     3.6 TiB   xfs          VMware_ VMware_Virtual_S   YES         -
+ 8:32$ddRLD0tvZ7Q...   k8s-node02   sdc     3.6 TiB   xfs          VMware_ VMware_Virtual_S   YES         -
+ 8:16$iB1HWon4mD5...   k8s-node03   sdb     3.6 TiB   xfs          VMware_ VMware_Virtual_S   YES         -
+ 8:48$X+ydOt5wYIq...   k8s-node03   sdd     3.6 TiB   xfs          VMware_ VMware_Virtual_S   YES         -
+ 8:16$XAgoO7TtqvA...   k8s-node04   sdb     3.6 TiB   xfs          VMware_ VMware_Virtual_S   YES         -
+ 8:32$GIGtbqkvmRz...   k8s-node04   sdc     3.6 TiB   xfs          VMware_ VMware_Virtual_S   YES         -

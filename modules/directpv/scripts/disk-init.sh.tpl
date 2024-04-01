@@ -40,7 +40,7 @@ fi
 # 磁盘格式化
 if [ -f ${path}/temp/init-drives.yaml ]; then
     len_num=$(wc -l ${path}/temp/init-drives.yaml)
-    kubectl directpv init ${path}/temp/init-drives.yaml --dangerous
+    $HOME/.krew/bin/kubectl-directpv init ${path}/temp/init-drives.yaml --dangerous
 fi
 
 # 清理环境
