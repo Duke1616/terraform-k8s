@@ -31,69 +31,26 @@ resource "helm_release" "longhorn_deploy" {
     file("${path.module}/helm/values/values-${var.longhorn_version}.yaml")
   ]
 
-  set {
-    name  = "persistence.defaultFsType"
-    value = var.defaultFsType
-  }
-
-  set {
-    name  = "defaultSettings.backupTarget"
-    value = var.backupTarget
-  }
-
-  set {
-    name  = "defaultSettings.backupTargetCredentialSecret"
-    value = var.backupTargetCredentialSecret
-  }
-
-  set {
-    name  = "defaultSettings.createDefaultDiskLabeledNodes"
-    value = var.createDefaultDiskLabeledNodes
-  }
-
-  set {
-    name  = "defaultSettings.defaultDataPath"
-    value = var.defaultDataPath
-  }
-
-  set {
-    name  = "defaultSettings.defaultReplicaCount"
-    value = var.defaultReplicaCount
-  }
-
-  set {
-    name  = "defaultSettings.upgradeChecker"
-    value = var.upgradeChecker
-  }
-
-  set {
-    name  = "defaultSettings.replicaSoftAntiAffinity"
-    value = var.replicaSoftAntiAffinity
-  }
-
-  set {
-    name  = "defaultSettings.allowVolumeCreationWithDegradedAvailability"
-    value = var.allowVolumeCreationWithDegradedAvailability
-  }
-
-  set {
-    name  = "defaultSettings.storageOverProvisioningPercentage"
-    value = var.storageOverProvisioningPercentage
-  }
-
-  set {
-    name  = "defaultSettings.storageMinimalAvailablePercentage"
-    value = var.storageMinimalAvailablePercentage
-  }
-
-  set {
-    name  = "defaultSettings.storageReservedPercentageForDefaultDisk"
-    value = var.storageReservedPercentageForDefaultDisk
-  }
-
-  set {
-    name  = "defaultSettings.deletingConfirmationFlag"
-    value = var.deletingConfirmationFlag
+  dynamic "set" {
+    for_each = {
+      "persistence.defaultFsType"                                   = var.defaultFsType
+      "defaultSettings.backupTarget"                                = var.backupTarget
+      "defaultSettings.backupTargetCredentialSecret"                = var.backupTargetCredentialSecret
+      "defaultSettings.createDefaultDiskLabeledNodes"               = var.createDefaultDiskLabeledNodes
+      "defaultSettings.defaultDataPath"                             = var.defaultDataPath
+      "defaultSettings.defaultReplicaCount"                         = var.defaultReplicaCount
+      "defaultSettings.upgradeChecker"                              = var.upgradeChecker
+      "defaultSettings.replicaSoftAntiAffinity"                     = var.replicaSoftAntiAffinity
+      "defaultSettings.allowVolumeCreationWithDegradedAvailability" = var.allowVolumeCreationWithDegradedAvailability
+      "defaultSettings.storageOverProvisioningPercentage"           = var.storageOverProvisioningPercentage
+      "defaultSettings.storageMinimalAvailablePercentage"           = var.storageMinimalAvailablePercentage
+      "defaultSettings.storageReservedPercentageForDefaultDisk"     = var.storageReservedPercentageForDefaultDisk
+      "defaultSettings.deletingConfirmationFlag"                    = var.deletingConfirmationFlag
+    }
+    content {
+      name  = set.key
+      value = set.value
+    }
   }
 }
 

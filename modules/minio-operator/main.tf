@@ -1,3 +1,16 @@
+locals {
+  tenant_resources = {
+    for idx, tenant in var.tenant : idx => {
+      name             = tenant.name
+      servers          = tenant.servers
+      volumesPerServer = tenant.volumesPerServer
+      size             = tenant.size
+      storageClassName = tenant.storageClassName
+      namespace        = tenant.namespace
+    }
+  }
+}
+
 resource "helm_release" "operator_deploy" {
   count            = var.enabled ? 1 : 0
   name             = "minio-operator"
@@ -17,7 +30,7 @@ resource "helm_release" "operator_deploy" {
 
 resource "helm_release" "tenant_deploy" {
   depends_on       = [helm_release.operator_deploy]
-  for_each         = var.enabled ? { for idx, tenant in var.tenant : idx => tenant } : {}
+  for_each         = var.enabled ? local.tenant_resources : {}
   name             = "minio-tenant"
   timeout          = 120
   chart            = "${path.module}/helm/charts/tenant-${var.minio_version}.tgz"
@@ -27,34 +40,19 @@ resource "helm_release" "tenant_deploy" {
     file("${path.module}/helm/values/values-tenant-${var.minio_version}.yaml")
   ]
 
-  set {
-    name  = "tenant.name"
-    value = each.value.name
-  }
-
-  set {
-    name  = "tenant.pools[0].servers"
-    value = each.value.servers
-  }
-
-  set {
-    name  = "tenant.pools[0].volumesPerServer"
-    value = each.value.volumesPerServer
-  }
-
-  set {
-    name  = "tenant.pools[0].size"
-    value = each.value.size
-  }
-
-  set {
-    name  = "tenant.pools[0].storageClassName"
-    value = each.value.storageClassName
-  }
-
-  set {
-    name  = "tenant.certificate.requestAutoCert"
-    value = false
+  dynamic "set" {
+    for_each = {
+      "tenant.name"                        = each.value.name
+      "tenant.pools[0].servers"            = each.value.servers
+      "tenant.pools[0].volumesPerServer"   = each.value.volumesPerServer
+      "tenant.pools[0].size"               = each.value.size
+      "tenant.pools[0].storageClassName"   = each.value.storageClassName
+      "tenant.certificate.requestAutoCert" = false
+    }
+    content {
+      name  = set.key
+      value = set.value
+    }
   }
 }
 

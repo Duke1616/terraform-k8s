@@ -1,4 +1,6 @@
 #!/bin/bash
+date=$(date +%F-%H-%M-%S)
+
 # 判断是否执行磁盘格式化操作
 if [ ${run_init_disk} != true ]; then
     rm -f ${path}/temp/*txt
@@ -6,8 +8,7 @@ if [ ${run_init_disk} != true ]; then
     exit 0
 fi
 
-# 如果没有设置过滤项，判断逻辑
-date=$(date +%F-%H-%M-%S)
+# 如果有设置过滤项，判断逻辑
 if [ '${exclude_command}' = 'null' ]; then
     if [ '${include_command}' = 'null' ]; then
         echo "\033[31m执行命令: grep 'YES' ${path}/temp/pre-disk.txt | awk -F '│' '{print $2, $3, $4, $5, $6, $7, $8, $9}' > ${path}/temp/init-disk.txt \033[0m"

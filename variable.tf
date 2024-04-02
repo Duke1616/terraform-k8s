@@ -42,7 +42,7 @@ variable "nfs_enabled" {
 
 variable "longhorn_enabled" {
   type        = bool
-  default     = false
+  default     = true
   description = "是否开启 Longhorn 部署"
 }
 
