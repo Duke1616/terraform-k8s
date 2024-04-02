@@ -34,7 +34,6 @@ README.md updated successfully
 
 | Name | Version |
 |------|---------|
-| <a name="provider_kubectl"></a> [kubectl](#provider\_kubectl) | >= 1.14.0 |
 | <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | >= 2.27.0 |
 | <a name="provider_null"></a> [null](#provider\_null) | >= 3.2.2 |
 
@@ -42,11 +41,10 @@ README.md updated successfully
 
 | Name | Type |
 |------|------|
-| [kubectl_manifest.directpv_deploy](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/resources/manifest) | resource |
 | [kubernetes_labels.dircetpv_lables](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/labels) | resource |
+| [null_resource.directpv_deploy](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
 | [null_resource.discover_disk](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
 | [null_resource.init_disk](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
-| [kubectl_path_documents.docs](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/data-sources/path_documents) | data source |
 ## Inputs
 
 | Name | Description | Type | Default | Required |

@@ -53,6 +53,14 @@ variable "tenant" {
       volumesPerServer = 2
       size             = "10Gi"
       storageClassName = "directpv-min-io"
+    },
+    {
+      name             = "stag"
+      namespace        = "idl-minio"
+      servers          = 4
+      volumesPerServer = 2
+      size             = "20Gi"
+      storageClassName = "directpv-min-io"
     }
   ]
 }

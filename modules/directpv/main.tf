@@ -24,17 +24,21 @@ resource "kubernetes_labels" "dircetpv_lables" {
   }
 }
 
-data "kubectl_path_documents" "docs" {
-  pattern = "${path.module}/manifests/*.yaml"
-}
+resource "null_resource" "directpv_deploy" {
+  depends_on = [kubernetes_labels.dircetpv_lables]
+  count      = var.enabled ? 1 : 0
+  triggers = {
+    always_run = fileexists("${path.module}/temp/lock-install.pid") == true ? timestamp() : null
+  }
 
-resource "kubectl_manifest" "directpv_deploy" {
-  count     = var.enabled ? length(data.kubectl_path_documents.docs.documents) : 0
-  yaml_body = data.kubectl_path_documents.docs.documents[count.index]
+  provisioner "local-exec" {
+    interpreter = ["bash", "-c"]
+    command     = "${path.module}/scripts/install-directpv.sh"
+  }
 }
 
 resource "null_resource" "discover_disk" {
-  depends_on = [kubectl_manifest.directpv_deploy]
+  depends_on = [null_resource.directpv_deploy]
   count      = var.enabled ? 1 : 0
   triggers = {
     always_run = var.run_init_disk == true ? timestamp() : null

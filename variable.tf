@@ -42,7 +42,7 @@ variable "nfs_enabled" {
 
 variable "longhorn_enabled" {
   type        = bool
-  default     = true
+  default     = false
   description = "是否开启 Longhorn 部署"
 }
 
@@ -94,7 +94,7 @@ variable "directpv_dynamic_nodes" {
 
 variable "directpv_run_init_disk" {
   type        = bool
-  default     = true
+  default     = false
   description = "是否部署后执行磁盘格式化操作"
 }
 

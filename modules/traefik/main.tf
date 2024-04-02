@@ -10,7 +10,7 @@ resource "helm_release" "traefik_deploy" {
   ]
 }
 
-data "kubectl_path_documents" "docs" {
+data "kubectl_path_documents" "traefik" {
   pattern = "${path.module}/manifests/*.yaml"
   vars = {
     namespace  = var.namespace
@@ -20,6 +20,6 @@ data "kubectl_path_documents" "docs" {
 
 resource "kubectl_manifest" "traefik_dashboard" {
   depends_on = [helm_release.traefik_deploy]
-  count      = var.enabled ? length(data.kubectl_path_documents.docs.documents) : 0
-  yaml_body  = data.kubectl_path_documents.docs.documents[count.index]
+  count      = var.enabled ? length(data.kubectl_path_documents.traefik.documents) : 0
+  yaml_body  = data.kubectl_path_documents.traefik.documents[count.index]
 }

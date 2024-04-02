@@ -58,7 +58,7 @@ resource "helm_release" "tenant_deploy" {
   }
 }
 
-data "kubectl_path_documents" "docs" {
+data "kubectl_path_documents" "minio" {
   pattern = "${path.module}/manifests/*.yaml"
   vars = {
     operator_namespace  = var.operator_namespace
@@ -68,6 +68,6 @@ data "kubectl_path_documents" "docs" {
 
 resource "kubectl_manifest" "minio_dashboard" {
   depends_on = [helm_release.tenant_deploy]
-  count      = var.ingress_enabled && var.enabled ? length(data.kubectl_path_documents.docs.documents) : 0
-  yaml_body  = data.kubectl_path_documents.docs.documents[count.index]
+  count      = var.ingress_enabled && var.enabled ? length(data.kubectl_path_documents.minio.documents) : 0
+  yaml_body  = data.kubectl_path_documents.minio.documents[count.index]
 }
