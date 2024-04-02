@@ -1,0 +1,22 @@
+%{ for _, tenant in jsondecode(tenant_resources) }
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: "console"
+  namespace: ${tenant.namespace}
+spec:
+  entryPoints:
+    - web
+  routes:
+  - kind: Rule
+    match: Host(`minio-${tenant.name}.${tenant_access_url}`)
+    services:
+    - kind: Service
+      name: "${tenant.name}-console"
+      namespace: ${tenant.namespace}
+      port: 9090
+      responseForwarding:
+        flushInterval: 1ms
+      scheme: http
+%{ endfor }

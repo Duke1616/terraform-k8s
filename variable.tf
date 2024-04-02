@@ -126,3 +126,38 @@ variable "minio_enabled" {
   default     = true
   description = "是否开启 Minio 部署"
 }
+
+variable "minio_tenant" {
+  type = list(object({
+    name             = string
+    namespace        = string
+    servers          = number
+    volumesPerServer = number
+    size             = string
+    storageClassName = string
+    minio_access_key = string
+    minio_secret_key = string
+  }))
+  default = [
+    {
+      name             = "prod"
+      namespace        = "minio"
+      servers          = 4
+      volumesPerServer = 2
+      size             = "10Gi"
+      storageClassName = "directpv-min-io"
+      minio_access_key = "u3E6KPj1zGIenHs8Pc58"
+      minio_secret_key = "3qPIm47x2k01nzJypxA2OfvmDhgzslyA4JoPHnGP"
+    },
+    {
+      name             = "stag"
+      namespace        = "idl-minio"
+      servers          = 4
+      volumesPerServer = 2
+      size             = "20Gi"
+      storageClassName = "directpv-min-io"
+      minio_access_key = "u3E6KPj1zGIenHs8Pc58"
+      minio_secret_key = "3qPIm47x2k01nzJypxA2OfvmDhgzslyA4JoPHnGP"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: console
+  namespace: ${operator_namespace}
+spec:
+  entryPoints:
+    - web
+  routes:
+  - kind: Rule
+    match: Host(`${operator_access_url}`)
+    services:
+    - kind: Service
+      name: console
+      namespace: ${operator_namespace}
+      port: 9090
+      responseForwarding:
+        flushInterval: 1ms
+      scheme: http

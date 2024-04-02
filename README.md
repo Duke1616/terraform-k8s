@@ -13,7 +13,7 @@ README.md updated successfully
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.7.4 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.12.1 |
-| <a name="requirement_kubectl"></a> [kubectl](#requirement\_kubectl) | >= 1.14.0 |
+| <a name="requirement_kubectl"></a> [kubectl](#requirement\_kubectl) | >= 2.0.4 |
 | <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.27.0 |
 | <a name="requirement_local"></a> [local](#requirement\_local) | >= 2.5.1 |
 | <a name="requirement_null"></a> [null](#requirement\_null) | >= 3.2.2 |
@@ -47,6 +47,7 @@ README.md updated successfully
 | <a name="input_longhorn_dynamic_nodes"></a> [longhorn\_dynamic\_nodes](#input\_longhorn\_dynamic\_nodes) | 自定义 Longhorn 存储文件目录 | <pre>map(object({<br>    labels      = map(string)<br>    annotations = map(string)<br>  }))</pre> | <pre>{<br>  "k8s-node01": {<br>    "annotations": {<br>      "node.longhorn.io/default-disks-config": "[{\"path\":\"/data/longhorn\",\"allowScheduling\":true}]"<br>    },<br>    "labels": {<br>      "node.longhorn.io/create-default-disk": "config"<br>    }<br>  },<br>  "k8s-node02": {<br>    "annotations": {<br>      "node.longhorn.io/default-disks-config": "[{\"path\":\"/data/longhorn\",\"allowScheduling\":true}]"<br>    },<br>    "labels": {<br>      "node.longhorn.io/create-default-disk": "config"<br>    }<br>  },<br>  "k8s-node03": {<br>    "annotations": {<br>      "node.longhorn.io/default-disks-config": "[{\"path\":\"/data/longhorn\",\"allowScheduling\":true}]"<br>    },<br>    "labels": {<br>      "node.longhorn.io/create-default-disk": "config"<br>    }<br>  }<br>}</pre> | no |
 | <a name="input_longhorn_enabled"></a> [longhorn\_enabled](#input\_longhorn\_enabled) | 是否开启 Longhorn 部署 | `bool` | `true` | no |
 | <a name="input_minio_enabled"></a> [minio\_enabled](#input\_minio\_enabled) | 是否开启 Minio 部署 | `bool` | `true` | no |
+| <a name="input_minio_tenant"></a> [minio\_tenant](#input\_minio\_tenant) | n/a | <pre>list(object({<br>    name             = string<br>    namespace        = string<br>    servers          = number<br>    volumesPerServer = number<br>    size             = string<br>    storageClassName = string<br>    minio_access_key = string<br>    minio_secret_key = string<br>  }))</pre> | <pre>[<br>  {<br>    "minio_access_key": "u3E6KPj1zGIenHs8Pc58",<br>    "minio_secret_key": "3qPIm47x2k01nzJypxA2OfvmDhgzslyA4JoPHnGP",<br>    "name": "prod",<br>    "namespace": "minio",<br>    "servers": 4,<br>    "size": "10Gi",<br>    "storageClassName": "directpv-min-io",<br>    "volumesPerServer": 2<br>  },<br>  {<br>    "minio_access_key": "u3E6KPj1zGIenHs8Pc58",<br>    "minio_secret_key": "3qPIm47x2k01nzJypxA2OfvmDhgzslyA4JoPHnGP",<br>    "name": "stag",<br>    "namespace": "idl-minio",<br>    "servers": 4,<br>    "size": "20Gi",<br>    "storageClassName": "directpv-min-io",<br>    "volumesPerServer": 2<br>  }<br>]</pre> | no |
 | <a name="input_nfs_enabled"></a> [nfs\_enabled](#input\_nfs\_enabled) | 是否开启 nfs-client-provisioner 部署 | `bool` | `false` | no |
 | <a name="input_treafik_enabled"></a> [treafik\_enabled](#input\_treafik\_enabled) | 是否开启 Traefik 部署 | `bool` | `true` | no |
 ## Outputs

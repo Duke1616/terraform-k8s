@@ -6,10 +6,9 @@ variable "enabled" {
 
 variable "ingress_enabled" {
   type        = bool
-  default     = true
+  default     = false
   description = "是否开启 Ingress 部署"
 }
-
 
 variable "operator_namespace" {
   type        = string
@@ -26,9 +25,14 @@ variable "minio_version" {
 variable "operator_access_url" {
   type        = string
   default     = "minio-operator.example.com"
-  description = "Traefik 访问地址"
+  description = "Minio Operator 访问地址"
 }
 
+variable "tenant_access_url" {
+  type        = string
+  default     = "example.com"
+  description = "Minio Tenant 访问地址"
+}
 
 variable "operator_sts_enabled" {
   type        = string
@@ -44,23 +48,9 @@ variable "tenant" {
     volumesPerServer = number
     size             = string
     storageClassName = string
+    minio_access_key = string
+    minio_secret_key = string
   }))
-  default = [
-    {
-      name             = "prod"
-      namespace        = "minio"
-      servers          = 4
-      volumesPerServer = 2
-      size             = "10Gi"
-      storageClassName = "directpv-min-io"
-    },
-    {
-      name             = "stag"
-      namespace        = "idl-minio"
-      servers          = 4
-      volumesPerServer = 2
-      size             = "20Gi"
-      storageClassName = "directpv-min-io"
-    }
-  ]
+  default     = []
+  description = "Minio Tenant 信息，可以同时创建多租户"
 }

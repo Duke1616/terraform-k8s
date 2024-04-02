@@ -54,7 +54,7 @@ resource "helm_release" "longhorn_deploy" {
   }
 }
 
-data "kubectl_path_documents" "docs" {
+data "kubectl_path_documents" "longhorn" {
   pattern = "${path.module}/manifests/*.yaml"
   vars = {
     namespace                    = var.namespace
@@ -65,6 +65,6 @@ data "kubectl_path_documents" "docs" {
 
 resource "kubectl_manifest" "longhorn_dashboard" {
   depends_on = [helm_release.longhorn_deploy]
-  count      = var.ingress_enabled && var.enabled ? length(data.kubectl_path_documents.docs.documents) : 0
-  yaml_body  = data.kubectl_path_documents.docs.documents[count.index]
+  count      = var.ingress_enabled && var.enabled ? length(data.kubectl_path_documents.longhorn.documents) : 0
+  yaml_body  = data.kubectl_path_documents.longhorn.documents[count.index]
 }

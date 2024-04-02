@@ -7,7 +7,7 @@ repos:
           - --allow-multiple-documents
       - id: check-added-large-files
         args:
-          - --maxkb=1024
+          - --maxkb=15000
       - id: trailing-whitespace
         args:
           - --markdown-linebreak-ext=md
@@ -38,3 +38,4 @@ repos:
         args:
           - --args=--format=json
           - --args=--skip-dirs="**/.terraform"
+exclude: modules/minio-operator/manifests/ingress-tenant.yaml

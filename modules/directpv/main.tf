@@ -11,6 +11,7 @@ locals {
   grep_includes = length(local.grep_commands) > 0 ? join(" | ", local.grep_commands) : null
 }
 
+# 需要调度节点添加labels
 resource "kubernetes_labels" "dircetpv_lables" {
   for_each    = var.enabled ? zipmap(var.dynamic_nodes, var.dynamic_nodes) : {}
   api_version = "v1"
@@ -24,6 +25,7 @@ resource "kubernetes_labels" "dircetpv_lables" {
   }
 }
 
+# 部署节点，切勿不可以使用manifest方式部署，会造成不可逆的破坏
 resource "null_resource" "directpv_deploy" {
   depends_on = [kubernetes_labels.dircetpv_lables]
   count      = var.enabled ? 1 : 0
@@ -37,6 +39,7 @@ resource "null_resource" "directpv_deploy" {
   }
 }
 
+# 输出可初始化磁盘
 resource "null_resource" "discover_disk" {
   depends_on = [null_resource.directpv_deploy]
   count      = var.enabled ? 1 : 0
@@ -49,6 +52,8 @@ resource "null_resource" "discover_disk" {
   }
 }
 
+# 通过过滤条件，形成最后需要初始化的磁盘，进行格式化
+# run_init_disk 为 false时，脚本内部也有判断逻辑，不会运行初始化操作
 resource "null_resource" "init_disk" {
   depends_on = [null_resource.discover_disk]
   count      = var.enabled ? 1 : 0

@@ -56,8 +56,11 @@ module "directpv" {
 
 
 module "minio-operator" {
-  depends_on      = [module.k8tz, module.traefik.helm_release]
-  source          = "./modules/minio-operator"
-  enabled         = var.minio_enabled
-  ingress_enabled = var.treafik_enabled
+  depends_on          = [module.k8tz, module.traefik.helm_release]
+  source              = "./modules/minio-operator"
+  enabled             = var.minio_enabled
+  ingress_enabled     = var.treafik_enabled
+  operator_access_url = "minio-operator.${var.domain_uri}"
+  tenant_access_url   = var.domain_uri
+  tenant              = var.minio_tenant
 }

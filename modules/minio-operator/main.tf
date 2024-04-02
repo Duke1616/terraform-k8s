@@ -1,16 +1,3 @@
-locals {
-  tenant_resources = {
-    for idx, tenant in var.tenant : idx => {
-      name             = tenant.name
-      servers          = tenant.servers
-      volumesPerServer = tenant.volumesPerServer
-      size             = tenant.size
-      storageClassName = tenant.storageClassName
-      namespace        = tenant.namespace
-    }
-  }
-}
-
 resource "helm_release" "operator_deploy" {
   count            = var.enabled ? 1 : 0
   name             = "minio-operator"
@@ -30,7 +17,7 @@ resource "helm_release" "operator_deploy" {
 
 resource "helm_release" "tenant_deploy" {
   depends_on       = [helm_release.operator_deploy]
-  for_each         = var.enabled ? local.tenant_resources : {}
+  for_each         = var.enabled ? { for idx, tenant in var.tenant : idx => tenant } : {}
   name             = "minio-tenant"
   timeout          = 120
   chart            = "${path.module}/helm/charts/tenant-${var.minio_version}.tgz"
@@ -48,6 +35,8 @@ resource "helm_release" "tenant_deploy" {
       "tenant.pools[0].size"               = each.value.size
       "tenant.pools[0].storageClassName"   = each.value.storageClassName
       "tenant.certificate.requestAutoCert" = false
+      "secrets.accessKey"                  = each.value.minio_access_key
+      "secrets.secretKey"                  = each.value.minio_secret_key
     }
     content {
       name  = set.key
@@ -61,6 +50,8 @@ data "kubectl_path_documents" "minio" {
   vars = {
     operator_namespace  = var.operator_namespace
     operator_access_url = var.operator_access_url
+    tenant_access_url   = var.tenant_access_url
+    tenant_resources    = jsonencode(var.tenant)
   }
 }
 
