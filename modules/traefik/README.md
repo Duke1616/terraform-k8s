@@ -13,7 +13,7 @@ README.md updated successfully
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.7.4 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.12.1 |
-| <a name="requirement_kubectl"></a> [kubectl](#requirement\_kubectl) | >= 2.0.4 |
+| <a name="requirement_kubectl"></a> [kubectl](#requirement\_kubectl) | 2.0.4 |
 ## Providers
 
 | Name | Version |
@@ -26,8 +26,8 @@ README.md updated successfully
 | Name | Type |
 |------|------|
 | [helm_release.traefik_deploy](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
-| [kubectl_manifest.traefik_dashboard](https://registry.terraform.io/providers/alekc/kubectl/latest/docs/resources/manifest) | resource |
-| [kubectl_path_documents.traefik](https://registry.terraform.io/providers/alekc/kubectl/latest/docs/data-sources/path_documents) | data source |
+| [kubectl_manifest.traefik_dashboard](https://registry.terraform.io/providers/alekc/kubectl/2.0.4/docs/resources/manifest) | resource |
+| [kubectl_path_documents.traefik](https://registry.terraform.io/providers/alekc/kubectl/2.0.4/docs/data-sources/path_documents) | data source |
 ## Inputs
 
 | Name | Description | Type | Default | Required |

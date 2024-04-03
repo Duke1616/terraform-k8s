@@ -120,7 +120,6 @@ variable "directpv_include_disk" {
   description = "生成包含命令片段，取valud值进行过滤，grep 3.6 | grep k8s-node01 请注意先后顺序"
 }
 
-
 variable "minio_enabled" {
   type        = bool
   default     = true
@@ -145,16 +144,6 @@ variable "minio_tenant" {
       servers          = 4
       volumesPerServer = 2
       size             = "10Gi"
-      storageClassName = "directpv-min-io"
-      minio_access_key = "u3E6KPj1zGIenHs8Pc58"
-      minio_secret_key = "3qPIm47x2k01nzJypxA2OfvmDhgzslyA4JoPHnGP"
-    },
-    {
-      name             = "stag"
-      namespace        = "idl-minio"
-      servers          = 4
-      volumesPerServer = 2
-      size             = "20Gi"
       storageClassName = "directpv-min-io"
       minio_access_key = "u3E6KPj1zGIenHs8Pc58"
       minio_secret_key = "3qPIm47x2k01nzJypxA2OfvmDhgzslyA4JoPHnGP"

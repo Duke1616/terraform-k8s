@@ -1,4 +1,4 @@
-resource "helm_release" "operator_deploy" {
+resource "helm_release" "minio_operator_deploy" {
   count            = var.enabled ? 1 : 0
   name             = "minio-operator"
   timeout          = 60
@@ -15,8 +15,8 @@ resource "helm_release" "operator_deploy" {
   }
 }
 
-resource "helm_release" "tenant_deploy" {
-  depends_on       = [helm_release.operator_deploy]
+resource "helm_release" "minio_tenant_deploy" {
+  depends_on       = [helm_release.minio_operator_deploy]
   for_each         = var.enabled ? { for idx, tenant in var.tenant : idx => tenant } : {}
   name             = "minio-tenant"
   timeout          = 120
@@ -56,7 +56,7 @@ data "kubectl_path_documents" "minio" {
 }
 
 resource "kubectl_manifest" "minio_dashboard" {
-  depends_on = [helm_release.tenant_deploy]
+  depends_on = [helm_release.minio_tenant_deploy]
   count      = var.ingress_enabled && var.enabled ? length(data.kubectl_path_documents.minio.documents) : 0
   yaml_body  = data.kubectl_path_documents.minio.documents[count.index]
 }

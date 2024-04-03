@@ -13,22 +13,22 @@ README.md updated successfully
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.7.4 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.12.1 |
-| <a name="requirement_kubectl"></a> [kubectl](#requirement\_kubectl) | >= 2.0.4 |
+| <a name="requirement_kubectl"></a> [kubectl](#requirement\_kubectl) | 2.0.4 |
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_helm"></a> [helm](#provider\_helm) | >= 2.12.1 |
-| <a name="provider_kubectl"></a> [kubectl](#provider\_kubectl) | >= 2.0.4 |
+| <a name="provider_kubectl"></a> [kubectl](#provider\_kubectl) | 2.0.4 |
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [helm_release.operator_deploy](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
-| [helm_release.tenant_deploy](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
-| [kubectl_manifest.minio_dashboard](https://registry.terraform.io/providers/alekc/kubectl/latest/docs/resources/manifest) | resource |
-| [kubectl_path_documents.minio](https://registry.terraform.io/providers/alekc/kubectl/latest/docs/data-sources/path_documents) | data source |
+| [helm_release.minio_operator_deploy](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [helm_release.minio_tenant_deploy](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [kubectl_manifest.minio_dashboard](https://registry.terraform.io/providers/alekc/kubectl/2.0.4/docs/resources/manifest) | resource |
+| [kubectl_path_documents.minio](https://registry.terraform.io/providers/alekc/kubectl/2.0.4/docs/data-sources/path_documents) | data source |
 ## Inputs
 
 | Name | Description | Type | Default | Required |

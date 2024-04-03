@@ -1,17 +1,3 @@
-provider "kubernetes" {
-  config_path = "~/.kube/config"
-}
-
-provider "helm" {
-  kubernetes {
-    config_path = "~/.kube/config"
-  }
-}
-
-provider "kubectl" {
-  config_path = "~/.kube/config"
-}
-
 module "krew" {
   source  = "./modules/krew"
   enabled = var.krew_enabled
@@ -54,7 +40,6 @@ module "directpv" {
   run_init_disk = var.directpv_run_init_disk
 }
 
-
 module "minio-operator" {
   depends_on          = [module.k8tz, module.traefik.helm_release]
   source              = "./modules/minio-operator"
@@ -63,4 +48,9 @@ module "minio-operator" {
   operator_access_url = "minio-operator.${var.domain_uri}"
   tenant_access_url   = var.domain_uri
   tenant              = var.minio_tenant
+}
+
+module "pxc-operator" {
+  depends_on = [module.k8tz, module.traefik.helm_release]
+  source     = "./modules/pxc-operator"
 }
