@@ -22,6 +22,12 @@ variable "pxc_version" {
   description = "PXC Operator 使用的版本"
 }
 
+variable "fullnameOverride" {
+  type        = string
+  default     = "prod"
+  description = "全局名称"
+}
+
 variable "storageClass" {
   type        = string
   default     = "longhorn"
@@ -33,6 +39,46 @@ variable "storageSize" {
   default     = "10Gi"
   description = "申请存储空间大小"
 }
+
+variable "backup_enabled" {
+  type        = bool
+  default     = false
+  description = "是否开启备份"
+}
+
+variable "backup_pitr_enabled" {
+  type        = bool
+  default     = false
+  description = "是否开启 binlogs 实时备份"
+}
+
+
+variable "backup_minio_secret_name" {
+  type        = string
+  default     = "minio-secret"
+  description = "备份 Minio Secret Name"
+}
+
+variable "backup_minio_api_access" {
+  type        = string
+  default     = "minio.minio.svc.cluster.local"
+  description = "备份 Minio 地址"
+}
+
+variable "backup_minio_access_key" {
+  type        = string
+  default     = "backup"
+  sensitive   = true
+  description = "备份使用 Minio Access Key"
+}
+
+variable "backup_minio_secret_key" {
+  type        = string
+  default     = "123456"
+  sensitive   = true
+  description = "备份使用 Minio Secret Key"
+}
+
 
 variable "disableTLS" {
   type        = bool
@@ -46,12 +92,10 @@ variable "pxc_resources" {
     pxc = {
       resources = {
         requests = {
-          cpu    = "100m"
-          memory = "512Mi"
+          cpu    = "600m"
+          memory = "1Gi"
         }
-        limits = {
-          memory = "512Mi"
-        }
+        limits = {}
       }
     }
   }

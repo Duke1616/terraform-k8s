@@ -21,5 +21,9 @@ terraform {
       source  = "hashicorp/helm"
       version = ">= 2.12.1"
     }
+    minio = {
+      source  = "aminueza/minio"
+      version = ">= 2.2.0"
+    }
   }
 }

@@ -17,7 +17,10 @@ resource "helm_release" "pxc_operator_deploy" {
 data "kubectl_path_documents" "pxc_operator" {
   pattern = "${path.module}/manifests/secret*.yaml"
   vars = {
-
+    namespace                = var.namespace
+    backup_minio_secret_name = var.backup_minio_secret_name
+    backup_minio_access_key  = base64encode(var.backup_minio_access_key)
+    backup_minio_secret_key  = base64encode(var.backup_minio_secret_key)
   }
 }
 
@@ -38,6 +41,13 @@ resource "helm_release" "pxc_db_deploy" {
   create_namespace = true
   values = [
     file("${path.module}/helm/values/values-pxc-db-${var.pxc_version}.yaml"),
+    templatefile("${path.module}/helm/manifests/backup.yaml.tpl", {
+      namespace                = var.namespace
+      backup_enabled           = var.backup_enabled
+      backup_pitr_enabled      = var.backup_pitr_enabled
+      backup_minio_api_access  = var.backup_minio_api_access
+      backup_minio_secret_name = var.backup_minio_secret_name
+    }),
     yamlencode(var.pxc_resources),
     yamlencode(var.haproxy_resources),
     yamlencode(var.logcollector_resources),
@@ -46,9 +56,9 @@ resource "helm_release" "pxc_db_deploy" {
 
   dynamic "set" {
     for_each = {
+      "fullnameOverride"             = var.fullnameOverride,
       "pxc.persistence.storageClass" = var.storageClass,
       "pxc.persistence.size"         = var.storageSize,
-      "backup.enabled"               = false,
       "pxc.disableTLS"               = var.disableTLS,
       "pause"                        = var.pause,
     }

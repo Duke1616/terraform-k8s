@@ -16,3 +16,8 @@ output "directpv_grep_include" {
 output "directpv_grep_exclude" {
   value = module.directpv.grep_exclude
 }
+
+
+output "minio_server" {
+  value = module.minio-operator.minio_server
+}

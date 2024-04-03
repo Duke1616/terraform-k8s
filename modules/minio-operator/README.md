@@ -1,4 +1,5 @@
 # minio-operator
+仅建议部署单租户的模式，多租户的部署方式并不是很完善，暂时不建议使用
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 README.md updated successfully
@@ -41,4 +42,9 @@ README.md updated successfully
 | <a name="input_operator_sts_enabled"></a> [operator\_sts\_enabled](#input\_operator\_sts\_enabled) | 是否开启 STS 认证 | `string` | `"off"` | no |
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | Minio Tenant 信息，可以同时创建多租户 | <pre>list(object({<br>    name             = string<br>    namespace        = string<br>    servers          = number<br>    volumesPerServer = number<br>    size             = string<br>    storageClassName = string<br>    minio_access_key = string<br>    minio_secret_key = string<br>  }))</pre> | `[]` | no |
 | <a name="input_tenant_access_url"></a> [tenant\_access\_url](#input\_tenant\_access\_url) | Minio Tenant 访问地址 | `string` | `"example.com"` | no |
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| <a name="output_minio_server"></a> [minio\_server](#output\_minio\_server) | n/a |
 <!-- END_TF_DOCS -->

@@ -149,4 +149,42 @@ variable "minio_tenant" {
       minio_secret_key = "3qPIm47x2k01nzJypxA2OfvmDhgzslyA4JoPHnGP"
     }
   ]
+  description = "Minio Tenant 创建租户"
+}
+
+variable "minio_server" {
+  type        = string
+  default     = "minio.minio.svc.cluster.local"
+  description = "Minio Provider Host And Port"
+}
+
+variable "minio_access_key" {
+  type        = string
+  default     = "u3E6KPj1zGIenHs8Pc58"
+  description = "Minio Provider Access Key"
+}
+
+variable "minio_secret_key" {
+  type        = string
+  default     = "3qPIm47x2k01nzJypxA2OfvmDhgzslyA4JoPHnGP"
+  description = "Minio Provider Secret Key"
+}
+
+variable "minio_region" {
+  type        = string
+  default     = "us-east-1"
+  description = "Minio Provider Region"
+}
+
+
+variable "pxc_enabled" {
+  type        = string
+  default     = true
+  description = "是否部署 Pxc Operator"
+}
+
+variable "pxc_pause" {
+  type        = bool
+  default     = false
+  description = "是否优雅退出, 重启服务时会用到"
 }
