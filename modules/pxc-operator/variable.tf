@@ -4,12 +4,6 @@ variable "enabled" {
   description = "是否开启全局部署"
 }
 
-variable "prevent_destroy" {
-  type        = bool
-  default     = true
-  description = "设置为 true 不允许卸载应用"
-}
-
 variable "pause" {
   type        = bool
   default     = false

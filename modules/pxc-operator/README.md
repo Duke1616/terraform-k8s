@@ -40,7 +40,6 @@ README.md updated successfully
 | <a name="input_logcollector_resources"></a> [logcollector\_resources](#input\_logcollector\_resources) | Logcollertor 资源限制 | `map(any)` | <pre>{<br>  "logcollector": {<br>    "resources": {<br>      "limits": {},<br>      "requests": {<br>        "cpu": "200m",<br>        "memory": "100M"<br>      }<br>    }<br>  }<br>}</pre> | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | 指定名称空间 | `string` | `"pxc-mysql"` | no |
 | <a name="input_pause"></a> [pause](#input\_pause) | 是否优雅退出, 重启服务时会用到 | `bool` | `false` | no |
-| <a name="input_prevent_destroy"></a> [prevent\_destroy](#input\_prevent\_destroy) | 设置为 true 不允许卸载应用 | `bool` | `true` | no |
 | <a name="input_pxc_resources"></a> [pxc\_resources](#input\_pxc\_resources) | PXC 资源限制 | `map(any)` | <pre>{<br>  "pxc": {<br>    "resources": {<br>      "limits": {<br>        "memory": "512Mi"<br>      },<br>      "requests": {<br>        "cpu": "100m",<br>        "memory": "512Mi"<br>      }<br>    }<br>  }<br>}</pre> | no |
 | <a name="input_pxc_version"></a> [pxc\_version](#input\_pxc\_version) | PXC Operator 使用的版本 | `string` | `"1.14.0"` | no |
 | <a name="input_storageClass"></a> [storageClass](#input\_storageClass) | 存储 Storage Class 使用的名称 | `string` | `"longhorn"` | no |

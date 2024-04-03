@@ -10,7 +10,7 @@ resource "helm_release" "pxc_operator_deploy" {
   ]
 
   lifecycle {
-    prevent_destroy = var.prevent_destroy
+    prevent_destroy = false
   }
 }
 
@@ -59,6 +59,6 @@ resource "helm_release" "pxc_db_deploy" {
   }
 
   lifecycle {
-    prevent_destroy = var.prevent_destroy
+    prevent_destroy = false
   }
 }
