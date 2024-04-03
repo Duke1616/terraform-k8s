@@ -46,6 +46,12 @@ variable "backup_enabled" {
   description = "是否开启备份"
 }
 
+variable "minio_backup_enabled" {
+  type        = bool
+  default     = true
+  description = "是否开启 S3 备份, 将会创建桶"
+}
+
 variable "backup_pitr_enabled" {
   type        = bool
   default     = false
@@ -74,11 +80,29 @@ variable "backup_minio_access_key" {
 
 variable "backup_minio_secret_key" {
   type        = string
-  default     = "123456"
+  default     = "Qwe123456@@"
   sensitive   = true
   description = "备份使用 Minio Secret Key"
 }
 
+
+variable "backup_minio_bucket" {
+  type = map(object({
+    storageName = string
+    bucket      = string
+  }))
+  default = {
+    backup = {
+      storageName = "s3-backups"
+      bucket      = "mysql-backups"
+    },
+    pitr = {
+      storageName = "s3-binlogs"
+      bucket      = "mysql-binlogs"
+    }
+  }
+  description = "备份 Minio 存储桶相关信息"
+}
 
 variable "disableTLS" {
   type        = bool

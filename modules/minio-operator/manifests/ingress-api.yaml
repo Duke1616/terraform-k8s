@@ -1,0 +1,13 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRouteTCP
+metadata:
+  name: minio-api
+  namespace: minio
+spec:
+  entryPoints:
+    - minio-api
+  routes:
+  - match: HostSNI(`*`)
+    services:
+    - name: minio
+      port: 80

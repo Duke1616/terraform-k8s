@@ -9,5 +9,9 @@ terraform {
       source  = "alekc/kubectl"
       version = "2.0.4"
     }
+    minio = {
+      source  = "aminueza/minio"
+      version = ">= 2.2.0"
+    }
   }
 }

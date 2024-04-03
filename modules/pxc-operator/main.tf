@@ -47,6 +47,7 @@ resource "helm_release" "pxc_db_deploy" {
       backup_pitr_enabled      = var.backup_pitr_enabled
       backup_minio_api_access  = var.backup_minio_api_access
       backup_minio_secret_name = var.backup_minio_secret_name
+      backup_minio_bucket_json = jsonencode(tomap({ minio = var.backup_minio_bucket }))
     }),
     yamlencode(var.pxc_resources),
     yamlencode(var.haproxy_resources),
@@ -71,4 +72,47 @@ resource "helm_release" "pxc_db_deploy" {
   lifecycle {
     prevent_destroy = false
   }
+}
+
+resource "minio_s3_bucket" "pxc_bucket" {
+  for_each      = var.minio_backup_enabled && var.enabled ? var.backup_minio_bucket : {}
+  bucket        = each.value.bucket
+  force_destroy = false
+  acl           = "private"
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
+data "minio_iam_policy_document" "pxc_policy" {
+  statement {
+    actions = [
+      "s3:*"
+    ]
+    resources = [
+      for key, value in var.backup_minio_bucket : "arn:aws:s3:::${value.bucket}/*"
+    ]
+  }
+}
+
+resource "minio_iam_policy" "pxc_pocliy" {
+  count  = var.minio_backup_enabled && var.enabled ? 1 : 0
+  name   = "pxc-backup"
+  policy = data.minio_iam_policy_document.pxc_policy.json
+}
+
+
+resource "minio_iam_user" "pxc_user" {
+  count         = var.minio_backup_enabled && var.enabled ? 1 : 0
+  name          = var.backup_minio_access_key
+  force_destroy = false
+  secret        = var.backup_minio_secret_key
+}
+
+
+resource "minio_iam_user_policy_attachment" "pxc_iam" {
+  count       = var.minio_backup_enabled && var.enabled ? 1 : 0
+  user_name   = minio_iam_user.pxc_user[count.index].id
+  policy_name = minio_iam_policy.pxc_pocliy[count.index].id
 }

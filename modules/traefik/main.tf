@@ -6,7 +6,9 @@ resource "helm_release" "traefik_deploy" {
   namespace        = var.namespace
   create_namespace = true
   values = [
-    file("${path.module}/helm/values/values-${var.traefik_version}.yaml")
+    file("${path.module}/helm/values/values-${var.traefik_version}.yaml"),
+    templatefile("${path.module}/helm/manifests/tcp-port.yaml.tpl", {
+    })
   ]
 }
 

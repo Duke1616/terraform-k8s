@@ -152,9 +152,35 @@ variable "minio_tenant" {
   description = "Minio Tenant 创建租户"
 }
 
+
+variable "pxc_enabled" {
+  type        = string
+  default     = true
+  description = "是否部署 Pxc Operator"
+}
+
+variable "pxc_backup_enabled" {
+  type        = string
+  default     = true
+  description = "是否开启 PXC 备份, 暂只支持使用 Minio 进行存储"
+}
+
+variable "pxc_minio_backup_enabled" {
+  type        = bool
+  default     = true
+  description = "是否开启 S3 备份, 将会创建桶"
+}
+
+variable "pxc_pause" {
+  type        = bool
+  default     = false
+  description = "是否优雅退出, 重启服务时会用到"
+}
+
+
 variable "minio_server" {
   type        = string
-  default     = "minio.minio.svc.cluster.local"
+  default     = "192.168.80.140:9001"
   description = "Minio Provider Host And Port"
 }
 
@@ -174,17 +200,4 @@ variable "minio_region" {
   type        = string
   default     = "us-east-1"
   description = "Minio Provider Region"
-}
-
-
-variable "pxc_enabled" {
-  type        = string
-  default     = true
-  description = "是否部署 Pxc Operator"
-}
-
-variable "pxc_pause" {
-  type        = bool
-  default     = false
-  description = "是否优雅退出, 重启服务时会用到"
 }

@@ -1,28 +1,30 @@
+%{ for _, minio in jsondecode(backup_minio_bucket_json) }
 backup:
   enabled: ${backup_enabled}
   pitr:
     enabled: ${backup_pitr_enabled}
-    storageName: s3-binlogs
+    storageName: ${minio.pitr.storageName}
     timeBetweenUploads: 60
   storages:
-    s3-backup:
+    ${minio.backup.storageName}:
       type: s3
       verifyTLS: false
       s3:
-        bucket: mysql-backups
+        bucket: ${minio.backup.bucket}
         credentialsSecret: ${backup_minio_secret_name}
-        region: us-west-2
+        region: us-east-1
         endpointUrl: http://${backup_minio_api_access}
-    s3-binlogs:
+    ${minio.pitr.storageName}:
       type: s3
       verifyTLS: false
       s3:
-        bucket: mysql-binlogs
+        bucket: ${minio.pitr.bucket}
         credentialsSecret: ${backup_minio_secret_name}
-        region: us-west-2
+        region: us-east-1
         endpointUrl: http://${backup_minio_api_access}
   schedule:
     - name: "daily-backup"
       schedule: "00 00 * * *"
       keep: 5
-      storageName: s3-backup
+      storageName: ${minio.backup.storageName}
+%{ endfor }
