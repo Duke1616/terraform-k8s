@@ -118,7 +118,9 @@ variable "pxc_resources" {
           cpu    = "600m"
           memory = "1Gi"
         }
-        limits = {}
+        limits = {
+          memory = "8Gi"
+        }
       }
     }
   }
@@ -170,4 +172,65 @@ variable "backup_pitr_resources" {
     }
   }
   description = "Backup Pitr 资源限制"
+}
+
+
+variable "root_password" {
+  type      = string
+  default   = "YnPdcu9qr9hnWqBT5quO"
+  sensitive = true
+}
+
+variable "xtrabackup_password" {
+  type      = string
+  default   = "TPkuN4XRjOmWpLkeJfrj"
+  sensitive = true
+}
+
+variable "monitor_password" {
+  type      = string
+  default   = "p0Y2Slwy64keski4FyRA"
+  sensitive = true
+}
+
+variable "clustercheck_password" {
+  type      = string
+  default   = "YNElyPmLQSaqPEP4Yrwn"
+  sensitive = true
+}
+
+variable "proxyadmin_password" {
+  type      = string
+  default   = "BCrfhLNRqSvvAho2pn0s"
+  sensitive = true
+}
+
+variable "operator_password" {
+  type      = string
+  default   = "VBjqJwiQ5FL5sYE6QCEG"
+  sensitive = true
+}
+
+variable "replication_password" {
+  type      = string
+  default   = "vhMSUhvEMa4bufYjhFvv"
+  sensitive = true
+}
+
+variable "innodb_buffer_pool_size" {
+  type        = string
+  default     = "2G"
+  description = "官方推荐其配置为系统内存的 50% 到 75%"
+}
+
+variable "max_connections" {
+  type        = number
+  default     = 5000
+  description = "最大连接数"
+}
+
+variable "innodb_buffer_pool_instances" {
+  type        = number
+  default     = 4
+  description = "该参数可以设置为服务器 CPU 核心数，这样可在一定程度上提供并发性能"
 }

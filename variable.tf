@@ -167,7 +167,7 @@ variable "pxc_backup_enabled" {
 
 variable "pxc_backup_pitr_enabled" {
   type        = bool
-  default     = false
+  default     = true
   description = "是否开启 PXC binlogs 备份"
 }
 

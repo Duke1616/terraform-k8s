@@ -1,3 +1,11 @@
+locals {
+  is_limits_empty = length(keys(var.pxc_resources["pxc"]["resources"]["limits"])) == 0
+  has_memory      = contains(keys(var.pxc_resources["pxc"]["resources"]["limits"]), "memory")
+  # https://docs.percona.com/percona-operator-for-mysql/pxc/options.html#make-changed-options-visible-to-percona-xtradb-cluster
+  # 如果开启 limits 限制，PXC会自动调节 innodb_buffer_pool_size
+  innodb_buffer_pool_size = local.is_limits_empty ? var.innodb_buffer_pool_size : (local.has_memory ? "system_define" : var.innodb_buffer_pool_size)
+}
+
 resource "helm_release" "pxc_operator_deploy" {
   count            = var.enabled ? 1 : 0
   name             = "pxc-operator"
@@ -42,10 +50,18 @@ resource "helm_release" "pxc_db_deploy" {
   values = [
     file("${path.module}/helm/values/values-pxc-db-${var.pxc_version}.yaml"),
     templatefile("${path.module}/helm/manifests/configuration.yaml.tpl", {
-
+      innodb_buffer_pool_size      = local.innodb_buffer_pool_size
+      max_connections              = var.max_connections
+      innodb_buffer_pool_instances = var.innodb_buffer_pool_instances
     }),
     templatefile("${path.module}/helm/manifests/secret.yaml.tpl", {
-
+      root_password         = var.root_password
+      xtrabackup_password   = var.xtrabackup_password
+      monitor_password      = var.monitor_password
+      clustercheck_password = var.clustercheck_password
+      proxyadmin_password   = var.proxyadmin_password
+      operator_password     = var.operator_password
+      replication_password  = var.replication_password
     }),
     templatefile("${path.module}/helm/manifests/backup.yaml.tpl", {
       namespace                = var.namespace

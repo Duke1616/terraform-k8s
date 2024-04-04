@@ -56,7 +56,7 @@ README.md updated successfully
 | <a name="input_minio_tenant"></a> [minio\_tenant](#input\_minio\_tenant) | Minio Tenant 创建租户 | <pre>list(object({<br>    name             = string<br>    namespace        = string<br>    servers          = number<br>    volumesPerServer = number<br>    size             = string<br>    storageClassName = string<br>    minio_access_key = string<br>    minio_secret_key = string<br>  }))</pre> | <pre>[<br>  {<br>    "minio_access_key": "u3E6KPj1zGIenHs8Pc58",<br>    "minio_secret_key": "3qPIm47x2k01nzJypxA2OfvmDhgzslyA4JoPHnGP",<br>    "name": "prod",<br>    "namespace": "minio",<br>    "servers": 4,<br>    "size": "10Gi",<br>    "storageClassName": "directpv-min-io",<br>    "volumesPerServer": 2<br>  }<br>]</pre> | no |
 | <a name="input_nfs_enabled"></a> [nfs\_enabled](#input\_nfs\_enabled) | 是否开启 nfs-client-provisioner 部署 | `bool` | `false` | no |
 | <a name="input_pxc_backup_enabled"></a> [pxc\_backup\_enabled](#input\_pxc\_backup\_enabled) | 是否开启 PXC 备份, 暂只支持使用 Minio 进行存储 | `string` | `true` | no |
-| <a name="input_pxc_backup_pitr_enabled"></a> [pxc\_backup\_pitr\_enabled](#input\_pxc\_backup\_pitr\_enabled) | 是否开启 PXC binlogs 备份 | `bool` | `false` | no |
+| <a name="input_pxc_backup_pitr_enabled"></a> [pxc\_backup\_pitr\_enabled](#input\_pxc\_backup\_pitr\_enabled) | 是否开启 PXC binlogs 备份 | `bool` | `true` | no |
 | <a name="input_pxc_enabled"></a> [pxc\_enabled](#input\_pxc\_enabled) | 是否部署 Pxc Operator | `string` | `true` | no |
 | <a name="input_pxc_minio_backup_enabled"></a> [pxc\_minio\_backup\_enabled](#input\_pxc\_minio\_backup\_enabled) | 是否开启 S3 备份, 将会创建桶 | `bool` | `true` | no |
 | <a name="input_pxc_pause"></a> [pxc\_pause](#input\_pxc\_pause) | 是否优雅退出, 重启服务时会用到 | `bool` | `false` | no |
