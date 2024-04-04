@@ -13,14 +13,14 @@ README.md updated successfully
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.7.4 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.12.1 |
-| <a name="requirement_kubectl"></a> [kubectl](#requirement\_kubectl) | 2.0.4 |
+| <a name="requirement_kubectl"></a> [kubectl](#requirement\_kubectl) | >= 2.0.4 |
 | <a name="requirement_minio"></a> [minio](#requirement\_minio) | >= 2.2.0 |
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_helm"></a> [helm](#provider\_helm) | >= 2.12.1 |
-| <a name="provider_kubectl"></a> [kubectl](#provider\_kubectl) | 2.0.4 |
+| <a name="provider_kubectl"></a> [kubectl](#provider\_kubectl) | >= 2.0.4 |
 | <a name="provider_minio"></a> [minio](#provider\_minio) | >= 2.2.0 |
 
 ## Resources
@@ -29,12 +29,12 @@ README.md updated successfully
 |------|------|
 | [helm_release.pxc_db_deploy](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.pxc_operator_deploy](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
-| [kubectl_manifest.pxc_operator](https://registry.terraform.io/providers/alekc/kubectl/2.0.4/docs/resources/manifest) | resource |
+| [kubectl_manifest.pxc_operator](https://registry.terraform.io/providers/alekc/kubectl/latest/docs/resources/manifest) | resource |
 | [minio_iam_policy.pxc_pocliy](https://registry.terraform.io/providers/aminueza/minio/latest/docs/resources/iam_policy) | resource |
 | [minio_iam_user.pxc_user](https://registry.terraform.io/providers/aminueza/minio/latest/docs/resources/iam_user) | resource |
 | [minio_iam_user_policy_attachment.pxc_iam](https://registry.terraform.io/providers/aminueza/minio/latest/docs/resources/iam_user_policy_attachment) | resource |
 | [minio_s3_bucket.pxc_bucket](https://registry.terraform.io/providers/aminueza/minio/latest/docs/resources/s3_bucket) | resource |
-| [kubectl_path_documents.pxc_operator](https://registry.terraform.io/providers/alekc/kubectl/2.0.4/docs/data-sources/path_documents) | data source |
+| [kubectl_path_documents.pxc_operator](https://registry.terraform.io/providers/alekc/kubectl/latest/docs/data-sources/path_documents) | data source |
 | [minio_iam_policy_document.pxc_policy](https://registry.terraform.io/providers/aminueza/minio/latest/docs/data-sources/iam_policy_document) | data source |
 ## Inputs
 

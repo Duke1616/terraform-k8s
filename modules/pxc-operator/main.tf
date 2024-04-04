@@ -41,6 +41,12 @@ resource "helm_release" "pxc_db_deploy" {
   create_namespace = true
   values = [
     file("${path.module}/helm/values/values-pxc-db-${var.pxc_version}.yaml"),
+    templatefile("${path.module}/helm/manifests/configuration.yaml.tpl", {
+
+    }),
+    templatefile("${path.module}/helm/manifests/secret.yaml.tpl", {
+
+    }),
     templatefile("${path.module}/helm/manifests/backup.yaml.tpl", {
       namespace                = var.namespace
       backup_enabled           = var.backup_enabled
@@ -75,7 +81,7 @@ resource "helm_release" "pxc_db_deploy" {
 }
 
 resource "minio_s3_bucket" "pxc_bucket" {
-  for_each      = var.minio_backup_enabled && var.enabled ? var.backup_minio_bucket : {}
+  for_each      = var.minio_backup_enabled ? var.backup_minio_bucket : {}
   bucket        = each.value.bucket
   force_destroy = false
   acl           = "private"
@@ -97,14 +103,14 @@ data "minio_iam_policy_document" "pxc_policy" {
 }
 
 resource "minio_iam_policy" "pxc_pocliy" {
-  count  = var.minio_backup_enabled && var.enabled ? 1 : 0
+  count  = var.minio_backup_enabled ? 1 : 0
   name   = "pxc-backup"
   policy = data.minio_iam_policy_document.pxc_policy.json
 }
 
 
 resource "minio_iam_user" "pxc_user" {
-  count         = var.minio_backup_enabled && var.enabled ? 1 : 0
+  count         = var.minio_backup_enabled ? 1 : 0
   name          = var.backup_minio_access_key
   force_destroy = false
   secret        = var.backup_minio_secret_key
@@ -112,7 +118,7 @@ resource "minio_iam_user" "pxc_user" {
 
 
 resource "minio_iam_user_policy_attachment" "pxc_iam" {
-  count       = var.minio_backup_enabled && var.enabled ? 1 : 0
+  count       = var.minio_backup_enabled ? 1 : 0
   user_name   = minio_iam_user.pxc_user[count.index].id
   policy_name = minio_iam_policy.pxc_pocliy[count.index].id
 }

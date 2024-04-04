@@ -57,4 +57,5 @@ module "pxc-operator" {
   enabled              = var.pxc_enabled
   backup_enabled       = var.pxc_backup_enabled
   minio_backup_enabled = var.pxc_minio_backup_enabled
+  backup_pitr_enabled  = var.pxc_backup_pitr_enabled
 }

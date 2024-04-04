@@ -165,6 +165,12 @@ variable "pxc_backup_enabled" {
   description = "是否开启 PXC 备份, 暂只支持使用 Minio 进行存储"
 }
 
+variable "pxc_backup_pitr_enabled" {
+  type        = bool
+  default     = false
+  description = "是否开启 PXC binlogs 备份"
+}
+
 variable "pxc_minio_backup_enabled" {
   type        = bool
   default     = true

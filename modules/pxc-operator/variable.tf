@@ -46,18 +46,17 @@ variable "backup_enabled" {
   description = "是否开启备份"
 }
 
-variable "minio_backup_enabled" {
-  type        = bool
-  default     = true
-  description = "是否开启 S3 备份, 将会创建桶"
-}
-
 variable "backup_pitr_enabled" {
   type        = bool
   default     = false
   description = "是否开启 binlogs 实时备份"
 }
 
+variable "minio_backup_enabled" {
+  type        = bool
+  default     = true
+  description = "是否开启 S3 备份, 将会创建桶"
+}
 
 variable "backup_minio_secret_name" {
   type        = string
