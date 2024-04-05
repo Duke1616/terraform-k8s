@@ -67,7 +67,7 @@ variable "backup_minio_secret_name" {
 variable "backup_minio_api_access" {
   type        = string
   default     = "minio.minio.svc.cluster.local"
-  description = "备份 Minio 地址"
+  description = "备份 Minio API 地址"
 }
 
 variable "backup_minio_access_key" {

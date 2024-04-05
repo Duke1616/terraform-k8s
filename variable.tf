@@ -155,8 +155,8 @@ variable "minio_tenant" {
 
 variable "pxc_enabled" {
   type        = string
-  default     = true
-  description = "是否部署 Pxc Operator"
+  default     = false
+  description = "是否部署 Pxc Operator, 开启后将不能关闭"
 }
 
 variable "pxc_backup_enabled" {
@@ -174,15 +174,20 @@ variable "pxc_backup_pitr_enabled" {
 variable "pxc_minio_backup_enabled" {
   type        = bool
   default     = true
-  description = "是否开启 S3 备份, 将会创建桶"
+  description = "是否开启创建 Minio 存储桶，开启后将不能关闭"
+}
+
+variable "pxc_backup_minio_api_access" {
+  type        = string
+  default     = "minio.minio.svc.cluster.local"
+  description = "备份 Minio API 地址"
 }
 
 variable "pxc_pause" {
   type        = bool
   default     = false
-  description = "是否优雅退出, 重启服务时会用到"
+  description = "是否进行程序优雅退出, 如配置更新等操作"
 }
-
 
 variable "minio_server" {
   type        = string

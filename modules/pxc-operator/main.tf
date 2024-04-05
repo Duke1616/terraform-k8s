@@ -103,7 +103,7 @@ resource "minio_s3_bucket" "pxc_bucket" {
   acl           = "private"
 
   lifecycle {
-    prevent_destroy = true
+    prevent_destroy = false
   }
 }
 

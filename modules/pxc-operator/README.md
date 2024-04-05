@@ -42,7 +42,7 @@ README.md updated successfully
 |------|-------------|------|---------|:--------:|
 | <a name="input_backup_enabled"></a> [backup\_enabled](#input\_backup\_enabled) | 是否开启备份 | `bool` | `false` | no |
 | <a name="input_backup_minio_access_key"></a> [backup\_minio\_access\_key](#input\_backup\_minio\_access\_key) | 备份使用 Minio Access Key | `string` | `"backup"` | no |
-| <a name="input_backup_minio_api_access"></a> [backup\_minio\_api\_access](#input\_backup\_minio\_api\_access) | 备份 Minio 地址 | `string` | `"minio.minio.svc.cluster.local"` | no |
+| <a name="input_backup_minio_api_access"></a> [backup\_minio\_api\_access](#input\_backup\_minio\_api\_access) | 备份 Minio API 地址 | `string` | `"minio.minio.svc.cluster.local"` | no |
 | <a name="input_backup_minio_bucket"></a> [backup\_minio\_bucket](#input\_backup\_minio\_bucket) | 备份 Minio 存储桶相关信息 | <pre>map(object({<br>    storageName = string<br>    bucket      = string<br>  }))</pre> | <pre>{<br>  "backup": {<br>    "bucket": "mysql-backups",<br>    "storageName": "s3-backups"<br>  },<br>  "pitr": {<br>    "bucket": "mysql-binlogs",<br>    "storageName": "s3-binlogs"<br>  }<br>}</pre> | no |
 | <a name="input_backup_minio_secret_key"></a> [backup\_minio\_secret\_key](#input\_backup\_minio\_secret\_key) | 备份使用 Minio Secret Key | `string` | `"Qwe123456@@"` | no |
 | <a name="input_backup_minio_secret_name"></a> [backup\_minio\_secret\_name](#input\_backup\_minio\_secret\_name) | 备份 Minio Secret Name | `string` | `"minio-secret"` | no |

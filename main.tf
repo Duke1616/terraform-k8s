@@ -51,11 +51,12 @@ module "minio-operator" {
 }
 
 module "pxc-operator" {
-  depends_on           = [module.k8tz, module.traefik.helm_release]
-  source               = "./modules/pxc-operator"
-  pause                = var.pxc_pause
-  enabled              = var.pxc_enabled
-  backup_enabled       = var.pxc_backup_enabled
-  minio_backup_enabled = var.pxc_minio_backup_enabled
-  backup_pitr_enabled  = var.pxc_backup_pitr_enabled
+  depends_on              = [module.k8tz, module.traefik.helm_release]
+  source                  = "./modules/pxc-operator"
+  pause                   = var.pxc_pause
+  enabled                 = var.pxc_enabled
+  backup_enabled          = var.pxc_backup_enabled
+  minio_backup_enabled    = var.pxc_minio_backup_enabled
+  backup_pitr_enabled     = var.pxc_backup_pitr_enabled
+  backup_minio_api_access = var.pxc_backup_minio_api_access
 }
