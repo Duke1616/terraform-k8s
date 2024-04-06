@@ -60,3 +60,7 @@ module "pxc-operator" {
   backup_pitr_enabled     = var.pxc_backup_pitr_enabled
   backup_minio_api_access = var.pxc_backup_minio_api_access
 }
+
+module "psmdb-operator" {
+  source = "./modules/psmdb-operator"
+}

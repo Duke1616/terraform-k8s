@@ -54,15 +54,6 @@ resource "helm_release" "pxc_db_deploy" {
       max_connections              = var.max_connections
       innodb_buffer_pool_instances = var.innodb_buffer_pool_instances
     }),
-    templatefile("${path.module}/helm/manifests/secret.yaml.tpl", {
-      root_password         = var.root_password
-      xtrabackup_password   = var.xtrabackup_password
-      monitor_password      = var.monitor_password
-      clustercheck_password = var.clustercheck_password
-      proxyadmin_password   = var.proxyadmin_password
-      operator_password     = var.operator_password
-      replication_password  = var.replication_password
-    }),
     templatefile("${path.module}/helm/manifests/backup.yaml.tpl", {
       namespace                = var.namespace
       backup_enabled           = var.backup_enabled
@@ -88,6 +79,22 @@ resource "helm_release" "pxc_db_deploy" {
     content {
       name  = set.key
       value = set.value
+    }
+  }
+
+  dynamic "set_sensitive" {
+    for_each = {
+      "secret.passwords.root"         = var.root_password
+      "secret.passwords.xtrabackup"   = var.xtrabackup_password
+      "secret.passwords.monitor"      = var.monitor_password
+      "secret.passwords.clustercheck" = var.clustercheck_password
+      "secret.passwords.proxyadmin"   = var.proxyadmin_password
+      "secret.passwords.operator"     = var.operator_password
+      "secret.passwords.replication"  = var.replication_password
+    }
+    content {
+      name  = set_sensitive.key
+      value = set_sensitive.value
     }
   }
 

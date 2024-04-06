@@ -29,6 +29,7 @@ README.md updated successfully
 | <a name="module_longhorn"></a> [longhorn](#module\_longhorn) | ./modules/longhorn | n/a |
 | <a name="module_minio-operator"></a> [minio-operator](#module\_minio-operator) | ./modules/minio-operator | n/a |
 | <a name="module_nfs-client-provisioner"></a> [nfs-client-provisioner](#module\_nfs-client-provisioner) | ./modules/nfs-client-provisioner | n/a |
+| <a name="module_psmdb-operator"></a> [psmdb-operator](#module\_psmdb-operator) | ./modules/psmdb-operator | n/a |
 | <a name="module_pxc-operator"></a> [pxc-operator](#module\_pxc-operator) | ./modules/pxc-operator | n/a |
 | <a name="module_traefik"></a> [traefik](#module\_traefik) | ./modules/traefik | n/a |
 
