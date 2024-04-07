@@ -1,6 +1,6 @@
 variable "enabled" {
   type        = bool
-  default     = true
+  default     = false
   description = "是否开启全局部署"
 }
 
@@ -34,10 +34,16 @@ variable "fullnameOverride" {
   description = "全局名称"
 }
 
-variable "sharding_eanbled" {
+variable "backup_enabled" {
   type        = bool
   default     = false
-  description = "是否开启sharding cluster 模式部署"
+  description = "是否开启备份"
+}
+
+variable "backup_pitr_enabled" {
+  type        = bool
+  default     = false
+  description = "是否开启 oplogs 实时备份"
 }
 
 variable "storageClass" {
@@ -52,16 +58,10 @@ variable "storageSize" {
   description = "申请存储空间大小"
 }
 
-variable "backup_enabled" {
+variable "sharding_eanbled" {
   type        = bool
-  default     = true
-  description = "是否开启备份"
-}
-
-variable "backup_pitr_enabled" {
-  type        = bool
-  default     = true
-  description = "是否开启 oplogs 实时备份"
+  default     = false
+  description = "是否开启sharding cluster 模式部署"
 }
 
 variable "psmdb_db_resources" {
