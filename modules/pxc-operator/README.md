@@ -21,8 +21,11 @@ README.md updated successfully
 |------|---------|
 | <a name="provider_helm"></a> [helm](#provider\_helm) | >= 2.12.1 |
 | <a name="provider_kubectl"></a> [kubectl](#provider\_kubectl) | >= 2.0.4 |
-| <a name="provider_minio"></a> [minio](#provider\_minio) | >= 2.2.0 |
+## Modules
 
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_pxc-minio"></a> [pxc-minio](#module\_pxc-minio) | ../minio | n/a |
 ## Resources
 
 | Name | Type |
@@ -30,12 +33,7 @@ README.md updated successfully
 | [helm_release.pxc_db_deploy](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.pxc_operator_deploy](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [kubectl_manifest.pxc_operator](https://registry.terraform.io/providers/alekc/kubectl/latest/docs/resources/manifest) | resource |
-| [minio_iam_policy.pxc_pocliy](https://registry.terraform.io/providers/aminueza/minio/latest/docs/resources/iam_policy) | resource |
-| [minio_iam_user.pxc_user](https://registry.terraform.io/providers/aminueza/minio/latest/docs/resources/iam_user) | resource |
-| [minio_iam_user_policy_attachment.pxc_iam](https://registry.terraform.io/providers/aminueza/minio/latest/docs/resources/iam_user_policy_attachment) | resource |
-| [minio_s3_bucket.pxc_bucket](https://registry.terraform.io/providers/aminueza/minio/latest/docs/resources/s3_bucket) | resource |
 | [kubectl_path_documents.pxc_operator](https://registry.terraform.io/providers/alekc/kubectl/latest/docs/data-sources/path_documents) | data source |
-| [minio_iam_policy_document.pxc_policy](https://registry.terraform.io/providers/aminueza/minio/latest/docs/data-sources/iam_policy_document) | data source |
 ## Inputs
 
 | Name | Description | Type | Default | Required |
@@ -44,6 +42,7 @@ README.md updated successfully
 | <a name="input_backup_minio_access_key"></a> [backup\_minio\_access\_key](#input\_backup\_minio\_access\_key) | 备份使用 Minio Access Key | `string` | `"backup"` | no |
 | <a name="input_backup_minio_api_access"></a> [backup\_minio\_api\_access](#input\_backup\_minio\_api\_access) | 备份 Minio API 地址 | `string` | `"minio.minio.svc.cluster.local"` | no |
 | <a name="input_backup_minio_bucket"></a> [backup\_minio\_bucket](#input\_backup\_minio\_bucket) | 备份 Minio 存储桶相关信息 | <pre>map(object({<br>    storageName = string<br>    bucket      = string<br>  }))</pre> | <pre>{<br>  "backup": {<br>    "bucket": "mysql-backups",<br>    "storageName": "s3-backups"<br>  },<br>  "pitr": {<br>    "bucket": "mysql-binlogs",<br>    "storageName": "s3-binlogs"<br>  }<br>}</pre> | no |
+| <a name="input_backup_minio_policy_name"></a> [backup\_minio\_policy\_name](#input\_backup\_minio\_policy\_name) | 备份 Minio 使用的 Policy Name | `string` | `"pxc-backup"` | no |
 | <a name="input_backup_minio_secret_key"></a> [backup\_minio\_secret\_key](#input\_backup\_minio\_secret\_key) | 备份使用 Minio Secret Key | `string` | `"Qwe123456@@"` | no |
 | <a name="input_backup_minio_secret_name"></a> [backup\_minio\_secret\_name](#input\_backup\_minio\_secret\_name) | 备份 Minio Secret Name | `string` | `"minio-secret"` | no |
 | <a name="input_backup_pitr_enabled"></a> [backup\_pitr\_enabled](#input\_backup\_pitr\_enabled) | 是否开启 binlogs 实时备份 | `bool` | `false` | no |

@@ -19,6 +19,22 @@ resource "helm_release" "psmdb_operator_deploy" {
   }
 }
 
+data "kubectl_path_documents" "psmdb_operator" {
+  pattern = "${path.module}/manifests/secret*.yaml"
+  vars = {
+    namespace                = var.namespace
+    backup_minio_secret_name = var.backup_minio_secret_name
+    backup_minio_access_key  = base64encode(var.backup_minio_access_key)
+    backup_minio_secret_key  = base64encode(var.backup_minio_secret_key)
+  }
+}
+
+resource "kubectl_manifest" "psmdb_operator" {
+  depends_on = [helm_release.psmdb_operator_deploy]
+  count      = var.enabled ? length(data.kubectl_path_documents.psmdb_operator.documents) : 0
+  yaml_body  = data.kubectl_path_documents.psmdb_operator.documents[count.index]
+}
+
 
 resource "helm_release" "psmdb_db_deploy" {
   count            = var.enabled ? 1 : 0
@@ -27,10 +43,16 @@ resource "helm_release" "psmdb_db_deploy" {
   chart            = "${path.module}/helm/charts/psmdb-db-${var.psmdb_db_version}.tgz"
   namespace        = var.namespace
   create_namespace = true
-  values = concat([
+  values = [
     file("${path.module}/helm/values/values-psmdb-db-${var.psmdb_db_version}.yaml"),
-
-  ])
+    templatefile("${path.module}/helm/manifests/backup.yaml.tpl", {
+      backup_enabled           = var.backup_enabled
+      backup_pitr_enabled      = var.backup_pitr_enabled
+      backup_minio_api_access  = var.backup_minio_api_access
+      backup_minio_secret_name = var.backup_minio_secret_name
+      backup_minio_bucket_json = jsonencode(tomap({ minio = var.backup_minio_bucket }))
+    }),
+  ]
 
   dynamic "set" {
     for_each = {
@@ -41,10 +63,10 @@ resource "helm_release" "psmdb_db_deploy" {
       "replsets[0].volumeSpec.pvc.storageClassName"           = var.storageClass
       "replsets[0].volumeSpec.pvc.resources.requests.storage" = var.storageSize
       "replsets[0].size"                                      = 3
-      #"replsets[0].resources.limits.cpu" = var.psmdb_db_resources["limits"]["cpu"]
-      #"replsets[0].resources.limits.memory" = var.psmdb_db_resources["limits"]["memory"]
-      #"replsets[0].resources.requests.cpu" = var.psmdb_db_resources["requests"]["cpu"]
-      #"replsets[0].resources.requests.memory" = var.psmdb_db_resources["requests"]["memory"]
+      "replsets[0].resources.limits.cpu"                      = var.psmdb_db_resources["limits"]["cpu"]
+      "replsets[0].resources.limits.memory"                   = var.psmdb_db_resources["limits"]["memory"]
+      "replsets[0].resources.requests.cpu"                    = var.psmdb_db_resources["requests"]["cpu"]
+      "replsets[0].resources.requests.memory"                 = var.psmdb_db_resources["requests"]["memory"]
     }
     content {
       name  = set.key
@@ -70,4 +92,13 @@ resource "helm_release" "psmdb_db_deploy" {
   lifecycle {
     prevent_destroy = false
   }
+}
+
+module "psmdb-minio" {
+  source            = "../minio"
+  enabled           = var.minio_backup_enabled
+  minio_policy_name = var.backup_minio_policy_name
+  minio_bucket      = [for b in values(var.backup_minio_bucket) : b.bucket]
+  minio_access_key  = var.backup_minio_access_key
+  minio_secret_key  = var.backup_minio_secret_key
 }

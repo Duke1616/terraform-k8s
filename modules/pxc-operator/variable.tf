@@ -64,6 +64,12 @@ variable "backup_minio_secret_name" {
   description = "备份 Minio Secret Name"
 }
 
+variable "backup_minio_policy_name" {
+  type        = string
+  default     = "pxc-backup"
+  description = "备份 Minio 使用的 Policy Name"
+}
+
 variable "backup_minio_api_access" {
   type        = string
   default     = "minio.minio.svc.cluster.local"
