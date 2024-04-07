@@ -62,5 +62,17 @@ module "pxc-operator" {
 }
 
 module "psmdb-operator" {
-  source = "./modules/psmdb-operator"
+  source                  = "./modules/psmdb-operator"
+  enabled                 = var.psmdb_enabled
+  pause                   = var.psmdb_pause
+  backup_enabled          = var.psmdb_backup_enabled
+  backup_pitr_enabled     = var.psmdb_backup_pitr_enabled
+  minio_backup_enabled    = var.psmdb_minio_backup_enabled
+  backup_minio_api_access = var.psmdb_backup_minio_api_access
+}
+
+
+module "kubeblocks" {
+  source  = "./modules/kubeblocks"
+  enabled = var.kubeblocks_enabled
 }

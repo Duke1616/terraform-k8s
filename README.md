@@ -26,6 +26,7 @@ README.md updated successfully
 | <a name="module_directpv"></a> [directpv](#module\_directpv) | ./modules/directpv | n/a |
 | <a name="module_k8tz"></a> [k8tz](#module\_k8tz) | ./modules/k8tz | n/a |
 | <a name="module_krew"></a> [krew](#module\_krew) | ./modules/krew | n/a |
+| <a name="module_kubeblocks"></a> [kubeblocks](#module\_kubeblocks) | ./modules/kubeblocks | n/a |
 | <a name="module_longhorn"></a> [longhorn](#module\_longhorn) | ./modules/longhorn | n/a |
 | <a name="module_minio-operator"></a> [minio-operator](#module\_minio-operator) | ./modules/minio-operator | n/a |
 | <a name="module_nfs-client-provisioner"></a> [nfs-client-provisioner](#module\_nfs-client-provisioner) | ./modules/nfs-client-provisioner | n/a |
@@ -47,6 +48,7 @@ README.md updated successfully
 | <a name="input_enable_info_output"></a> [enable\_info\_output](#input\_enable\_info\_output) | INFO 类型的日志输出 | `bool` | `false` | no |
 | <a name="input_k8tz_enabled"></a> [k8tz\_enabled](#input\_k8tz\_enabled) | 是否开启 K8TZ 部署 | `bool` | `false` | no |
 | <a name="input_krew_enabled"></a> [krew\_enabled](#input\_krew\_enabled) | 是否开启 krew plugin 部署 | `bool` | `true` | no |
+| <a name="input_kubeblocks_enabled"></a> [kubeblocks\_enabled](#input\_kubeblocks\_enabled) | 是否开启 kubeblocks 模块部署 | `bool` | `true` | no |
 | <a name="input_longhorn_dynamic_nodes"></a> [longhorn\_dynamic\_nodes](#input\_longhorn\_dynamic\_nodes) | 自定义 Longhorn 存储文件目录 | <pre>map(object({<br>    labels      = map(string)<br>    annotations = map(string)<br>  }))</pre> | <pre>{<br>  "k8s-node01": {<br>    "annotations": {<br>      "node.longhorn.io/default-disks-config": "[{\"path\":\"/data/longhorn\",\"allowScheduling\":true}]"<br>    },<br>    "labels": {<br>      "node.longhorn.io/create-default-disk": "config"<br>    }<br>  },<br>  "k8s-node02": {<br>    "annotations": {<br>      "node.longhorn.io/default-disks-config": "[{\"path\":\"/data/longhorn\",\"allowScheduling\":true}]"<br>    },<br>    "labels": {<br>      "node.longhorn.io/create-default-disk": "config"<br>    }<br>  },<br>  "k8s-node03": {<br>    "annotations": {<br>      "node.longhorn.io/default-disks-config": "[{\"path\":\"/data/longhorn\",\"allowScheduling\":true}]"<br>    },<br>    "labels": {<br>      "node.longhorn.io/create-default-disk": "config"<br>    }<br>  }<br>}</pre> | no |
 | <a name="input_longhorn_enabled"></a> [longhorn\_enabled](#input\_longhorn\_enabled) | 是否开启 Longhorn 部署 | `bool` | `true` | no |
 | <a name="input_minio_access_key"></a> [minio\_access\_key](#input\_minio\_access\_key) | Minio Provider Access Key | `string` | `"u3E6KPj1zGIenHs8Pc58"` | no |
@@ -56,6 +58,12 @@ README.md updated successfully
 | <a name="input_minio_server"></a> [minio\_server](#input\_minio\_server) | Minio Provider Host And Port | `string` | `"192.168.80.140:9001"` | no |
 | <a name="input_minio_tenant"></a> [minio\_tenant](#input\_minio\_tenant) | Minio Tenant 创建租户 | <pre>list(object({<br>    name             = string<br>    namespace        = string<br>    servers          = number<br>    volumesPerServer = number<br>    size             = string<br>    storageClassName = string<br>    minio_access_key = string<br>    minio_secret_key = string<br>  }))</pre> | <pre>[<br>  {<br>    "minio_access_key": "u3E6KPj1zGIenHs8Pc58",<br>    "minio_secret_key": "3qPIm47x2k01nzJypxA2OfvmDhgzslyA4JoPHnGP",<br>    "name": "prod",<br>    "namespace": "minio",<br>    "servers": 4,<br>    "size": "10Gi",<br>    "storageClassName": "directpv-min-io",<br>    "volumesPerServer": 2<br>  }<br>]</pre> | no |
 | <a name="input_nfs_enabled"></a> [nfs\_enabled](#input\_nfs\_enabled) | 是否开启 nfs-client-provisioner 部署 | `bool` | `false` | no |
+| <a name="input_psmdb_backup_enabled"></a> [psmdb\_backup\_enabled](#input\_psmdb\_backup\_enabled) | 是否开启 Psmdb 备份, 暂只支持使用 Minio 进行存储 | `string` | `false` | no |
+| <a name="input_psmdb_backup_minio_api_access"></a> [psmdb\_backup\_minio\_api\_access](#input\_psmdb\_backup\_minio\_api\_access) | 备份 Minio API 地址 | `string` | `"minio.minio.svc.cluster.local"` | no |
+| <a name="input_psmdb_backup_pitr_enabled"></a> [psmdb\_backup\_pitr\_enabled](#input\_psmdb\_backup\_pitr\_enabled) | 是否开启 Psmdb Oplogs 备份 | `bool` | `false` | no |
+| <a name="input_psmdb_enabled"></a> [psmdb\_enabled](#input\_psmdb\_enabled) | 是否开启 psmdb-operator 模块部署 | `bool` | `false` | no |
+| <a name="input_psmdb_minio_backup_enabled"></a> [psmdb\_minio\_backup\_enabled](#input\_psmdb\_minio\_backup\_enabled) | 是否开启创建 Minio 存储桶，开启后将不能关闭 | `string` | `true` | no |
+| <a name="input_psmdb_pause"></a> [psmdb\_pause](#input\_psmdb\_pause) | 是否进行程序优雅退出, 如配置更新等操作 | `bool` | `false` | no |
 | <a name="input_pxc_backup_enabled"></a> [pxc\_backup\_enabled](#input\_pxc\_backup\_enabled) | 是否开启 PXC 备份, 暂只支持使用 Minio 进行存储 | `string` | `true` | no |
 | <a name="input_pxc_backup_minio_api_access"></a> [pxc\_backup\_minio\_api\_access](#input\_pxc\_backup\_minio\_api\_access) | 备份 Minio API 地址 | `string` | `"minio.minio.svc.cluster.local"` | no |
 | <a name="input_pxc_backup_pitr_enabled"></a> [pxc\_backup\_pitr\_enabled](#input\_pxc\_backup\_pitr\_enabled) | 是否开启 PXC binlogs 备份 | `bool` | `true` | no |

@@ -212,3 +212,45 @@ variable "minio_region" {
   default     = "us-east-1"
   description = "Minio Provider Region"
 }
+
+variable "psmdb_enabled" {
+  type        = bool
+  default     = false
+  description = "是否开启 psmdb-operator 模块部署"
+}
+
+variable "psmdb_pause" {
+  type        = bool
+  default     = false
+  description = "是否进行程序优雅退出, 如配置更新等操作"
+}
+
+variable "psmdb_minio_backup_enabled" {
+  type        = string
+  default     = true
+  description = "是否开启创建 Minio 存储桶，开启后将不能关闭"
+}
+
+variable "psmdb_backup_minio_api_access" {
+  type        = string
+  default     = "minio.minio.svc.cluster.local"
+  description = "备份 Minio API 地址"
+}
+
+variable "psmdb_backup_enabled" {
+  type        = string
+  default     = false
+  description = "是否开启 Psmdb 备份, 暂只支持使用 Minio 进行存储"
+}
+
+variable "psmdb_backup_pitr_enabled" {
+  type        = bool
+  default     = false
+  description = "是否开启 Psmdb Oplogs 备份"
+}
+
+variable "kubeblocks_enabled" {
+  type        = bool
+  default     = true
+  description = "是否开启 kubeblocks 模块部署"
+}
